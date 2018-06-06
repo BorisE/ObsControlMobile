@@ -7,4 +7,13 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.482510" />  
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\IQPPage.xaml.cs">
+      <DependentUpon>IQPPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\DataPage.xaml.cs">
+      <DependentUpon>DataPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
