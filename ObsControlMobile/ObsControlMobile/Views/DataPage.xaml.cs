@@ -21,8 +21,6 @@ namespace ObsControlMobile.Views
         public DataPage()
         {
             InitializeComponent();
-
-            BindingContext = viewModel = new ItemsViewModel();
         }
 
         protected override void OnAppearing()
