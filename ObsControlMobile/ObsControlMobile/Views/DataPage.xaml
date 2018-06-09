@@ -12,8 +12,18 @@
     <ContentPage.Content>
 
         <StackLayout>
-            <Image Source="logo2.png" VerticalOptions="Center" HeightRequest="64" />
-
+            <Image Source="{Binding AllSkyURL}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Text="{Binding AllSkyDate}" HorizontalOptions="Center" />
+            <!-- 
+            <Button Margin="0,10,0,0" Text="Refresh" Command="{Binding RefreshAllSkyCommand}" BackgroundColor="{StaticResource Primary}" TextColor="White" />
+            -->
+            <Label Text="{Binding SunsetTimeSt}" />
+            <Label Text="{Binding CivTwilightEndTimeSt}" />
+            <Label Text="{Binding NavTwilightEndTimeSt}" />
+            <Label Text="{Binding AstroTwilightEndTimeSt}" />
+            <Label Text="{Binding AstroTwilightBegTimeSt}" />
+            <Label Text="{Binding NavTwilightBegTimeSt}" />
+            <Label Text="{Binding CivTwilightBegTimeSt}" />
             <Label Text="{Binding SunriseTimeSt}" />
         </StackLayout>
     
