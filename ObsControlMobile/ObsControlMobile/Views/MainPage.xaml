@@ -5,7 +5,7 @@
             x:Class="ObsControlMobile.Views.MainPage">
     <TabbedPage.Children>
 
-        <NavigationPage Title="Data">
+        <NavigationPage Title="Sky">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_feed.png"/>

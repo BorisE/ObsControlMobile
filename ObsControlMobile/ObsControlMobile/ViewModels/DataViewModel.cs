@@ -92,10 +92,12 @@ namespace ObsControlMobile.ViewModels
 
         public DataViewModel()
         {
-            Title = "AstroData";
+            Title = "Sky";
             RefreshAllSkyImage();
 
-            RefreshAllSkyCommand = new Command(() => Device.OpenUri(new Uri("http://www.astromania.info/observatory/")));
+            AllSkyTapCommand = new Command(() => RefreshAllSkyImage());
+            RefreshAllSkyCommand = new Command(() => RefreshAllSkyImage());
+            OpenSiteCommand = new Command(() => Device.OpenUri(new Uri("http://www.astromania.info/observatory/")));
 
             //Timings
             RecalculateTimes();
@@ -122,5 +124,9 @@ namespace ObsControlMobile.ViewModels
         }
 
         public ICommand RefreshAllSkyCommand { get; }
+        public ICommand AllSkyTapCommand { get; }
+        
+        public ICommand OpenSiteCommand { get; }
+        
     }
 }
