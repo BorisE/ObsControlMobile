@@ -18,9 +18,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\DataPage - Copy.xaml.cs">
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
     <Compile Update="Views\IQPPage.xaml.cs">
       <DependentUpon>IQPPage.xaml</DependentUpon>
     </Compile>

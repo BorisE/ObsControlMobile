@@ -17,7 +17,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0">
-                    <Image Source="{Binding AllSkyURL}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect ="AspectFit">
+                    <Image Source="{Binding AllSkyURL}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect ="AspectFill">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding AllSkyTapCommand}" NumberOfTapsRequired="2" />
                         </Image.GestureRecognizers>
@@ -29,19 +29,29 @@
                 <Button Margin="0,2,0,0" Text="Refresh" Command="{Binding RefreshAllSkyCommand}" TextColor="White" />
                 <Button Margin="0,2,0,0" Text="Goto Astromania" Command="{Binding OpenSiteCommand}" TextColor="White" />
                 -->
-                <StackLayout Grid.Row="1">
-                    <StackLayout Orientation="Vertical" BackgroundColor="Azure">            
-                        <Label Text="{Binding SunsetTimeSt}" />
-                        <Label Text="{Binding CivTwilightEndTimeSt}" />
-                        <Label Text="{Binding NavTwilightEndTimeSt}" />
-                        <Label Text="{Binding AstroTwilightEndTimeSt}" />
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" BackgroundColor="Azure">
-                        <Label Text="{Binding AstroTwilightBegTimeSt}" />
-                        <Label Text="{Binding NavTwilightBegTimeSt}" />
-                        <Label Text="{Binding CivTwilightBegTimeSt}" />
-                        <Label Text="{Binding SunriseTimeSt}" />
-                    </StackLayout>
+                <StackLayout Grid.Row="1" Spacing="0" HorizontalOptions="CenterAndExpand">
+                    <Grid BackgroundColor="Black" Padding="0,5,0,5" ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="{Binding SunsetTimeSt}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding CivTwilightEndTimeSt}" Grid.Column="1" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding NavTwilightEndTimeSt}" Grid.Column="2" BackgroundColor="Blue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding AstroTwilightEndTimeSt}" Grid.Column="3" BackgroundColor="DarkBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding AstroTwilightBegTimeSt}" Grid.Column="4" BackgroundColor="DarkBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding NavTwilightBegTimeSt}" Grid.Column="5" BackgroundColor="Blue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding CivTwilightBegTimeSt}" Grid.Column="6" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="{Binding SunriseTimeSt}" Grid.Column="7" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    </Grid>
                 </StackLayout>
             </Grid>
         </ScrollView>

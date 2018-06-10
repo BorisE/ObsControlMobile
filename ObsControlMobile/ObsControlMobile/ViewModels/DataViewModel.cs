@@ -112,15 +112,15 @@ namespace ObsControlMobile.ViewModels
 
         public void RecalculateTimes()
         {
-            SunsetTimeSt = "Sunset: " + AstroUtilsProp.SunSetDateTime().ToString("HH:mm:ss"); 
-            CivTwilightEndTimeSt = "Civ end: " + AstroUtilsProp.CivilTwilightSetDateTime().ToString("HH:mm:ss");
-            NavTwilightEndTimeSt = "Nav end: " + AstroUtilsProp.NautTwilightSetDateTime().ToString("HH:mm:ss");
-            AstroTwilightEndTimeSt = "Astro end: " + AstroUtilsProp.AstronTwilightSetDateTime().ToString("HH:mm:ss");
+            SunsetTimeSt = AstroUtilsProp.SunSetDateTime().ToString("HH:mm"); 
+            CivTwilightEndTimeSt = AstroUtilsProp.CivilTwilightSetDateTime().ToString("HH:mm");
+            NavTwilightEndTimeSt = AstroUtilsProp.NautTwilightSetDateTime().ToString("HH:mm");
+            AstroTwilightEndTimeSt = AstroUtilsProp.AstronTwilightSetDateTime().ToString("HH:mm");
 
-            AstroTwilightBegTimeSt = "Asto beg: " + AstroUtilsProp.AstronTwilightRiseDateTime().ToString("HH:mm:ss");
-            NavTwilightBegTimeSt = "Nav beg: " + AstroUtilsProp.NautTwilightRiseDateTime().ToString("HH:mm:ss");
-            CivTwilightBegTimeSt = "Civ beg: " + AstroUtilsProp.CivilTwilightRiseDateTime().ToString("HH:mm:ss");
-            SunriseTimeSt = "Sunrise: " + AstroUtilsProp.SunRiseDateTime().ToString("HH:mm:ss");
+            AstroTwilightBegTimeSt = AstroUtilsProp.AstronTwilightRiseDateTime().ToString("HH:mm");
+            NavTwilightBegTimeSt = AstroUtilsProp.NautTwilightRiseDateTime().ToString("HH:mm");
+            CivTwilightBegTimeSt = AstroUtilsProp.CivilTwilightRiseDateTime().ToString("HH:mm");
+            SunriseTimeSt = AstroUtilsProp.SunRiseDateTime().ToString("HH:mm");
         }
 
         public ICommand RefreshAllSkyCommand { get; }
