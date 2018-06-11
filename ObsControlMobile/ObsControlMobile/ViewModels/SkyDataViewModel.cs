@@ -2,11 +2,18 @@
 using System.Windows.Input;
 
 using AsrtoUtils;
-
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace ObsControlMobile.ViewModels
 {
+    public class AllSkyDataJSON
+    {
+        //{"filename":"allsky-current.jpg","timestamp":1528686365}
+        public string filename = "";
+        public int timestamp = 0;
+    }
+
     public class SkyDataViewModel : BaseViewModel
     {
 
@@ -26,10 +33,18 @@ namespace ObsControlMobile.ViewModels
             set { SetProperty(ref allskydatest, value);}
         }
 
+        string currentdate;
+        public string CurrentDate
+        {
+            get { return currentdate; }
+            set { SetProperty(ref currentdate, value); }
+        }
+        
+
 
         #endregion AllSky
 
-        
+
 
         string meteoblueiframe = "";
         public string MeteoBlueIFrame
@@ -120,9 +135,35 @@ namespace ObsControlMobile.ViewModels
             //Allsky
             AllSkyURL = "http://astro.milantiev.com/allsky-current.jpg?time=" + DateTime.Now.Ticks;
             AllSkyDate = DateTime.Now.ToString("HH:mm:ss");
+
+            GetJSON();
+
         }
 
-        public void RecalculateTimes()
+        public async void GetJSON()
+        {
+            // Check network status  
+            //if (NetworkCheck.IsInternet())
+            {
+                var client = new System.Net.Http.HttpClient();
+                var response = await client.GetAsync("http://astro.milantiev.com/allsky/stat.php");
+                string contactsJson = await response.Content.ReadAsStringAsync(); //Getting response  
+
+                AllSkyDataJSON ObjContactList = new AllSkyDataJSON();
+                if (contactsJson != "")
+                {
+                    //Converting JSON Array Objects into generic list  
+                    ObjContactList = JsonConvert.DeserializeObject<AllSkyDataJSON>(contactsJson);
+                }
+
+                DateTime ASDT = ServiceClass.UnixTimeStampToDateTime(ObjContactList.timestamp);
+
+                CurrentDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
+
+            }
+        }
+
+            public void RecalculateTimes()
         {
             SunsetTimeSt = AstroUtilsProp.SunSetDateTime().ToString("HH:mm"); 
             CivTwilightEndTimeSt = AstroUtilsProp.CivilTwilightSetDateTime().ToString("HH:mm");

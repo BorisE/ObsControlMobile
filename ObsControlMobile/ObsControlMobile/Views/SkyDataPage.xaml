@@ -31,6 +31,7 @@
             <!-- 2nd row -->
             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1">
                 <Label Text="{Binding AllSkyDate}" HorizontalOptions="Center" />
+                <Label Text="{Binding CurrentDate}" HorizontalOptions="Center" />
             </StackLayout>
 
             <!-- 3rd row -->
