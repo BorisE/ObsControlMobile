@@ -21,8 +21,8 @@
     <Compile Update="Views\IQPPage.xaml.cs">
       <DependentUpon>IQPPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\DataPage.xaml.cs">
-      <DependentUpon>DataPage.xaml</DependentUpon>
+    <Compile Update="Views\SkyDataPage.xaml.cs">
+      <DependentUpon>SkyDataPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

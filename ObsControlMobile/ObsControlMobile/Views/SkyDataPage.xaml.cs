@@ -14,11 +14,11 @@ using ObsControlMobile.ViewModels;
 namespace ObsControlMobile.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DataPage : ContentPage
+	public partial class SkyDataPage : ContentPage
 	{
         ItemsViewModel viewModel;
 
-        public DataPage()
+        public SkyDataPage()
         {
             InitializeComponent();
         }

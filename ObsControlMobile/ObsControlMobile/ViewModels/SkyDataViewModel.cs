@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace ObsControlMobile.ViewModels
 {
-    public class DataViewModel : BaseViewModel
+    public class SkyDataViewModel : BaseViewModel
     {
 
         #region AllSky
@@ -28,6 +28,15 @@ namespace ObsControlMobile.ViewModels
 
 
         #endregion AllSky
+
+        
+
+        string meteoblueiframe = "";
+        public string MeteoBlueIFrame
+        {
+            get { return meteoblueiframe; }
+            set { SetProperty(ref meteoblueiframe, value); }
+        }
 
         #region Timings
 
@@ -90,10 +99,13 @@ namespace ObsControlMobile.ViewModels
         #endregion Timings
 
 
-        public DataViewModel()
+        public SkyDataViewModel()
         {
             Title = "Sky";
             RefreshAllSkyImage();
+
+            MeteoBlueIFrame = "<p><iframe style=\"width: 520px; height: 709px;\" src=\"https://www.meteoblue.com/en/weather/widget/seeing/il%27skiy_russia_556951?geoloc=fixed\" width=\"300\" height=\"150\" frameborder=\"0\" scrolling=\"NO\" sandbox=\"allow-same-origin allow-scripts allow-popups\"></iframe></p>";
+
 
             AllSkyTapCommand = new Command(() => RefreshAllSkyImage());
             RefreshAllSkyCommand = new Command(() => RefreshAllSkyImage());
@@ -125,7 +137,7 @@ namespace ObsControlMobile.ViewModels
 
         public ICommand RefreshAllSkyCommand { get; }
         public ICommand AllSkyTapCommand { get; }
-        
+
         public ICommand OpenSiteCommand { get; }
         
     }

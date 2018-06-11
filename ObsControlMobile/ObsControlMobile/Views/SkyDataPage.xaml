@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ObsControlMobile.Views.DataPage"
+             x:Class="ObsControlMobile.Views.SkyDataPage"
              xmlns:vm="clr-namespace:ObsControlMobile.ViewModels"
+             xmlns:local="clr-namespace:ObsControlMobile.Views"
              Title="{Binding Title}">
 
     <ContentPage.BindingContext>
-        <vm:DataViewModel />
+        <vm:SkyDataViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
@@ -14,14 +15,18 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="0">
-                    <Image Source="{Binding AllSkyURL}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Aspect ="AspectFill">
+                <!--<local:AspectRatioContainer AspectRatio="1" BackgroundColor="Aquamarine">-->
+                    <Image Source="{Binding AllSkyURL}" HorizontalOptions="Fill" Aspect ="AspectFill">
+                        <!-- 696px × 520px -->
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding AllSkyTapCommand}" NumberOfTapsRequired="2" />
                         </Image.GestureRecognizers>
                     </Image>
+                <!--</local:AspectRatioContainer>-->
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1">
                     <Label Text="{Binding AllSkyDate}" HorizontalOptions="Center" />
                 </StackLayout>
 
@@ -29,7 +34,7 @@
                 <Button Margin="0,2,0,0" Text="Refresh" Command="{Binding RefreshAllSkyCommand}" TextColor="White" />
                 <Button Margin="0,2,0,0" Text="Goto Astromania" Command="{Binding OpenSiteCommand}" TextColor="White" />
                 -->
-                <StackLayout Grid.Row="1" Spacing="0" HorizontalOptions="CenterAndExpand">
+                <StackLayout Grid.Row="2" Spacing="0" HorizontalOptions="CenterAndExpand">
                     <Grid BackgroundColor="Black" Padding="0,5,0,5" ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -52,8 +57,19 @@
                         <Label Text="{Binding CivTwilightBegTimeSt}" Grid.Column="6" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
                         <Label Text="{Binding SunriseTimeSt}" Grid.Column="7" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
                     </Grid>
+                    
+                    <StackLayout Spacing="0" HorizontalOptions="CenterAndExpand">
+                        <WebView>
+                            <WebView.Source>
+                                <HtmlWebViewSource Html="{Binding MeteoBlueIFrame}"/>
+                            </WebView.Source>
+                        </WebView>
+                    </StackLayout>
                 </StackLayout>
+
+                
             </Grid>
+
         </ScrollView>
     
     </ContentPage.Content>
