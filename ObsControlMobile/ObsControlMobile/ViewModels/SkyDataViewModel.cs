@@ -3,6 +3,7 @@ using System.Windows.Input;
 
 using AsrtoUtils;
 using Newtonsoft.Json;
+using ObsControlMobile.Services;
 using Xamarin.Forms;
 
 namespace ObsControlMobile.ViewModels
@@ -16,6 +17,9 @@ namespace ObsControlMobile.ViewModels
 
     public class SkyDataViewModel : BaseViewModel
     {
+        Page ParentPage;
+
+
 
         #region AllSky
 
@@ -114,8 +118,10 @@ namespace ObsControlMobile.ViewModels
         #endregion Timings
 
 
-        public SkyDataViewModel()
+        public SkyDataViewModel(Page ExtPP)
         {
+            ParentPage = ExtPP;
+
             Title = "Sky";
             RefreshAllSkyImage();
 
@@ -143,7 +149,7 @@ namespace ObsControlMobile.ViewModels
         public async void GetJSON()
         {
             // Check network status  
-            //if (NetworkCheck.IsInternet())
+            if (NetworkCheck.IsConnectedToInternet())
             {
                 var client = new System.Net.Http.HttpClient();
                 var response = await client.GetAsync("http://astro.milantiev.com/allsky/stat.php");
@@ -161,9 +167,13 @@ namespace ObsControlMobile.ViewModels
                 CurrentDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
 
             }
+            else
+            {
+                await ParentPage.DisplayAlert("Get allsky data", "No network is available.", "Ok");
+            }
         }
 
-            public void RecalculateTimes()
+        public void RecalculateTimes()
         {
             SunsetTimeSt = AstroUtilsProp.SunSetDateTime().ToString("HH:mm"); 
             CivTwilightEndTimeSt = AstroUtilsProp.CivilTwilightSetDateTime().ToString("HH:mm");

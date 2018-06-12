@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="ObsControlMobile.Views.IQPPage"
+             xmlns:vm="clr-namespace:ObsControlMobile.ViewModels"
              Title="{Binding Title}"
-             x:Name="BrowseItemsPage">
-       
+             x:Name="IQPPage">
+
+
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="ItemsListViewIQP" 
@@ -18,14 +21,40 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding Text}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                                <Label Text="{Binding Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" />
+                            <StackLayout Orientation="Horizontal">
+                                <BoxView Color="{Binding Color}" WidthRequest="10" HeightRequest="50" />
+                                <StackLayout Padding="10">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding ObjName}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16"  FontAttributes="Bold"/>
+                                        <Label Text="{Binding ImageFilter, StringFormat='({0})'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                        <Label Text="{Binding FWHM, StringFormat='FWHM: {0:F2}&quot;'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                        <Label Text="{Binding ObjAlt, StringFormat='Alt: {0:F0}°'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding StarsNumber, StringFormat='Stars: {0:N0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                        <Label Text="{Binding SkyBackground, StringFormat='Bg: {0:P0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                        <Label Text="{Binding AspectRatio, StringFormat='Aspect: {0:F3}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                        <Label Text="{Binding ImageExposure, StringFormat=' {0:N0}sec'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                        <!--<Label Text="{Binding ImageBinningX, StringFormat='Bin: {0:N0}x{0:N0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                        <Label Text="{Binding ImageSetTemp, StringFormat='SetTemp: {0:F2}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />-->
+                                        <Label Text="{Binding ImageTemp, StringFormat='Temp: {0:F2}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13"/>
+                                        <!--<Label Text="{Binding ObjRA, StringFormat='RA: {0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                        <Label Text="{Binding ObjDec, StringFormat='Dec: {0:N0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                        <Label Text="{Binding ObjAlt, StringFormat='Alt: {0:F1}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                        <Label Text="{Binding ObjAz, StringFormat='Az: {0:N0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />-->
+
+
+
+
+                                    </StackLayout>
+                                    <Label Text="{Binding FITSFileName}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <!--<ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsDownloading}"/>-->
         </StackLayout>
     </ContentPage.Content>
     

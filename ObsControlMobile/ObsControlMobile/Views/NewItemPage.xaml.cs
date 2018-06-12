@@ -11,15 +11,15 @@ namespace ObsControlMobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public IQPItem Item { get; set; }
 
         public NewItemPage()
         {
             InitializeComponent();
 
-            Item = new Item
+            Item = new IQPItem
             {
-                Text = "Item name",
+                FITSFileName = "Item name",
                 Description = "This is an item description."
             };
 

@@ -8,21 +8,24 @@ using ObsControlMobile.Models;
 [assembly: Xamarin.Forms.Dependency(typeof(ObsControlMobile.Services.MockDataStore))]
 namespace ObsControlMobile.Services
 {
-    public class MockDataStore : IDataStore<Item>
+    public class MockDataStore : IDataStore<IQPItem>
     {
-        List<Item> items;
+        List<IQPItem> items;
 
         public MockDataStore()
         {
-            items = new List<Item>();
-            var mockItems = new List<Item>
+            items = new List<IQPItem>();
+            var mockItems = new List<IQPItem>
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." },
+                new IQPItem { Id = Guid.NewGuid().ToString(), StarsNumber=250, SkyBackground = 0.09, MeanRadius=3.78673095436,AspectRatio=0.931, DateObsUTC=DateTime.Now,
+                    ImageExposure =600d, ImageFilter="R", ImageType="Light Frame", ImageBinningX=1, ImageBinningY=1,ImageSetTemp=-20.0, ImageTemp=-20.0299995523, CameraPixelSizeX=5.4, CameraPixelSizeY=5.4,
+                    ObjName="M60", ObjRA="12 42 35.0",ObjDec="+11 40 02.0", ObjAlt=48.9, ObjAz=310.0, CameraName="ArtemisHSC", Observer="Boris Emchenko", TelescopeName="SW250", TelescopeFocusLen=1000d, TelescopeDiameter=250d,
+                    FITSFileName="M20_20180612_L_600s_1x1_-20degC_0.0degN_000008769.FIT", PixelResolution=1.113831, FWHM=4.21777832562 },
+            
+                new IQPItem { Id = Guid.NewGuid().ToString(), StarsNumber=250, SkyBackground = 0.09, MeanRadius=3.78673095436,AspectRatio=0.931, DateObsUTC=DateTime.Now,
+                    ImageExposure =600d, ImageFilter="L", ImageType="Light Frame", ImageBinningX=1, ImageBinningY=1,ImageSetTemp=-20.0, ImageTemp=-20.0299995523, CameraPixelSizeX=5.4, CameraPixelSizeY=5.4,
+                    ObjName="M60", ObjRA="12 42 35.0",ObjDec="+11 40 02.0", ObjAlt=51.9, ObjAz=310.0, CameraName="ArtemisHSC", Observer="Boris Emchenko", TelescopeName="SW250", TelescopeFocusLen=1000d, TelescopeDiameter=250d,
+                    FITSFileName="M20_20180612_L_600s_1x1_-20degC_0.0degN_000008769.FIT", PixelResolution=1.113831, FWHM=4.01777832562 },
             };
 
             foreach (var item in mockItems)
@@ -31,16 +34,16 @@ namespace ObsControlMobile.Services
             }
         }
 
-        public async Task<bool> AddItemAsync(Item item)
+        public async Task<bool> AddItemAsync(IQPItem item)
         {
             items.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(Item item)
+        public async Task<bool> UpdateItemAsync(IQPItem item)
         {
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            var _item = items.Where((IQPItem arg) => arg.Id == item.Id).FirstOrDefault();
             items.Remove(_item);
             items.Add(item);
 
@@ -49,18 +52,18 @@ namespace ObsControlMobile.Services
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var _item = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
+            var _item = items.Where((IQPItem arg) => arg.Id == id).FirstOrDefault();
             items.Remove(_item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<Item> GetItemAsync(string id)
+        public async Task<IQPItem> GetItemAsync(string id)
         {
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<IQPItem>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(items);
         }

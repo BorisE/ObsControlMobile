@@ -22,12 +22,12 @@ namespace ObsControlMobile.Views
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = viewModel = new ItemsViewModel(this);
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
+            var item = args.SelectedItem as IQPItem;
             if (item == null)
                 return;
 

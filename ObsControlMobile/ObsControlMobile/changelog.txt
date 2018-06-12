@@ -1,4 +1,22 @@
-﻿
+﻿Observatory Mobile Conrtol software
+(c) 2018 by Boris Emchenko 
+
+Special software for getting information on Astrohostel.ru remote observatory
+
+to do:
+- read IQP data for current session
+- read roof status
+- push notification on roof status
+- switch power on/off
+
+
+1.0.3 [12.06.2018]
+- trying to read IQP Data
+- Network connection checking with dispaly alert
+
+1.0.2 [11.06.2018]
+- reading allksy json status
+- displaying meteoblue weather
 
 1.0.2 [10.06.2018]
 - allsky image

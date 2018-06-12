@@ -6,10 +6,10 @@ namespace ObsControlMobile.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {
-        public Item Item { get; set; }
-        public ItemDetailViewModel(Item item = null)
+        public IQPItem Item { get; set; }
+        public ItemDetailViewModel(IQPItem item = null)
         {
-            Title = item?.Text;
+            Title = item?.FITSFileName;
             Item = item;
         }
     }

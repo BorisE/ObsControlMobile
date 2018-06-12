@@ -38,7 +38,7 @@
                             <FormattedString.Spans>
                                 <Span Text="ObsControl Mobile" FontAttributes="Bold" FontSize="22" />
                                 <Span Text=" " />
-                                <Span Text="1.02" ForegroundColor="{StaticResource LightTextColor}" />
+                                <Span Text="1.03" ForegroundColor="{StaticResource LightTextColor}" />
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>

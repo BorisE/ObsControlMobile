@@ -16,11 +16,12 @@ namespace ObsControlMobile.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SkyDataPage : ContentPage
 	{
-        ItemsViewModel viewModel;
+        SkyDataViewModel viewModel;
 
         public SkyDataPage()
         {
             InitializeComponent();
+            BindingContext = viewModel = new SkyDataViewModel(this);
         }
 
         protected override void OnAppearing()

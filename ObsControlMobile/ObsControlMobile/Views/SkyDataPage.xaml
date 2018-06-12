@@ -6,10 +6,6 @@
              xmlns:local="clr-namespace:ObsControlMobile.Views"
              Title="{Binding Title}">
 
-    <ContentPage.BindingContext>
-        <vm:SkyDataViewModel />
-    </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

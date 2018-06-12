@@ -24,9 +24,9 @@ namespace ObsControlMobile.Views
         {
             InitializeComponent();
 
-            var item = new Item
+            var item = new IQPItem
             {
-                Text = "Item 1",
+                FITSFileName = "Item 1",
                 Description = "This is an item description."
             };
 
