@@ -6,8 +6,18 @@
              xmlns:local="clr-namespace:ObsControlMobile.Views"
              Title="{Binding Title}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding AllSkyDate, StringFormat='Upd:{0}'}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="add.png"/>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <Grid>
+        <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -25,12 +35,12 @@
             </local:AspectRatioContainer>
 
             <!-- 2nd row -->
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1">
-                <Label Text="{Binding AllSkyDate}" HorizontalOptions="Center" />
-                <Label Text="{Binding CurrentDate}" HorizontalOptions="Center" />
-            </StackLayout>
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1">
+                <Label Text="{Binding AllSkyDate}" HorizontalOptions="Center" BackgroundColor="OrangeRed"/>
+                <Label Text="{Binding CurrentDate}" HorizontalOptions="Center" BackgroundColor="MediumVioletRed" />
+            </StackLayout>-->
 
-            <!-- 3rd row -->
+            <!-- 3rd row TIMINGS -->
             <StackLayout Grid.Row="2" Spacing="0" HorizontalOptions="CenterAndExpand">
                 <Grid BackgroundColor="Black" Padding="0,5,0,5" ColumnSpacing="0">
                     <Grid.ColumnDefinitions>
@@ -55,14 +65,16 @@
                 </Grid>
             </StackLayout>
 
-            <ScrollView Grid.Row="3" HorizontalOptions="Fill"  BackgroundColor="Aquamarine">
-                <WebView HorizontalOptions="FillAndExpand">
+            <!-- 4th row. METEOBLUE -->
+            <ScrollView Grid.Row="3" HorizontalOptions="Fill"  BackgroundColor="Aquamarine" Margin="0,0,0,0">
+                <WebView HorizontalOptions="FillAndExpand" BackgroundColor="Beige">
                     <WebView.Source>
                         <HtmlWebViewSource Html="{Binding MeteoBlueIFrame}"/>
                     </WebView.Source>
                 </WebView>
             </ScrollView>
 
+            <ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsDownloading}"/>
         </Grid>
 
     </ContentPage.Content>

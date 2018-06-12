@@ -11,7 +11,7 @@ namespace ObsControlMobile.ViewModels
         {
             Title = "About";
 
-            OpenWebCommand = new Command(() => Device.OpenUri(new Uri("http://www.astromania.info/observatory/")));
+            OpenWebCommand = new Command(() => Device.OpenUri(new Uri("http://astrohostel.ru")));
         }
 
         public ICommand OpenWebCommand { get; }

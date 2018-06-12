@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace ObsControlMobile.ViewModels
 {
@@ -47,6 +48,13 @@ namespace ObsControlMobile.ViewModels
             set { SetProperty(ref isdownloading, value); }
         }
 
+
+        DateTime lastsessiondate;
+        public DateTime LastSessionDate
+        {
+            get { return lastsessiondate; }
+            set { SetProperty(ref lastsessiondate, value); }
+        }
 
 
         async Task ExecuteLoadItemsCommand()
@@ -84,22 +92,36 @@ namespace ObsControlMobile.ViewModels
         public async void GetJSON()
         {
             //Check network status  
-            if (NetworkCheck.IsConnectedToInternet() && false)
+            if (NetworkCheck.IsConnectedToInternet())
             {
                 this.IsDownloading = true;
 
                 //Download
-                Uri geturi = new Uri("http://localhost/astropublisher/getcurrentsession.php"); //replace your xml url  
+                Uri geturi = new Uri("http://astromania.info/iqp_data/getcurrentsession.php"); //replace your xml url  
                 HttpClient client = new HttpClient();
                 HttpResponseMessage response = await client.GetAsync(geturi);
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     string responseSt = await response.Content.ReadAsStringAsync();
-                    var list = JsonConvert.DeserializeObject<IEnumerable<IQPItem>>(await response.Content.ReadAsStringAsync());
 
+                    //await ParentPage.DisplayAlert("Get IQP Data", responseSt, "Ok");
+
+                    JsonSerializerSettings JSONSettings = new JsonSerializerSettings();
+                    JSONSettings.Culture = new CultureInfo("ru-RU");
+                    JSONSettings.Culture.NumberFormat.NumberDecimalSeparator = ".";
+                    JSONSettings.NullValueHandling = NullValueHandling.Ignore;
+
+                    List<IQPItem> list = JsonConvert.DeserializeObject<List<IQPItem>>(await response.Content.ReadAsStringAsync(), JSONSettings);
+
+                    DateTime curSess = DateTime.MinValue;
                     foreach (IQPItem item in list)
+                    {
                         Items.Add(item);
+                        curSess = (item.DateObsUTC > curSess ? item.DateObsUTC : curSess);
+                    }
+                    //update session name
+                    LastSessionDate = curSess.AddHours(AsrtoUtils.AstroUtilsProp.SiteTimeZone);
                 }
 
                 this.IsDownloading = false;

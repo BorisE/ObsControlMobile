@@ -7,9 +7,9 @@ namespace ObsControlMobile.Models
     {
         public static Dictionary<string, string> FilterColors = new Dictionary<string, string>
             {
-                {"R","OrangeRed"},
-                {"G","LightGreen"},
-                {"B","CornflowerBlue"},
+                {"R","Red"},
+                {"G","Green"},
+                {"B","Blue"},
                 {"L","Azure"},
                 {"Ha","Azure"},
                 {"Sii","Azure"},

@@ -6,6 +6,15 @@
              Title="{Binding Title}"
              x:Name="IQPPage">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding LastSessionDate, StringFormat='Upd:{0:dd-MM-yyyy HH:mm:ss}'}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="add.png"/>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <StackLayout>
@@ -54,7 +63,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <!--<ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsDownloading}"/>-->
+            <ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsDownloading}"/>
         </StackLayout>
     </ContentPage.Content>
     

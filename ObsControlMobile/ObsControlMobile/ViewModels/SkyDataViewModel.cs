@@ -57,6 +57,13 @@ namespace ObsControlMobile.ViewModels
             set { SetProperty(ref meteoblueiframe, value); }
         }
 
+        bool isdownloading = false;
+        public bool IsDownloading
+        {
+            get { return isdownloading; }
+            set { SetProperty(ref isdownloading, value); }
+        }
+
         #region Timings
 
         string sunsettimest = "";
@@ -140,7 +147,7 @@ namespace ObsControlMobile.ViewModels
         {
             //Allsky
             AllSkyURL = "http://astro.milantiev.com/allsky-current.jpg?time=" + DateTime.Now.Ticks;
-            AllSkyDate = DateTime.Now.ToString("HH:mm:ss");
+            CurrentDate = DateTime.Now.ToString("HH:mm:ss");
 
             GetJSON();
 
@@ -151,6 +158,8 @@ namespace ObsControlMobile.ViewModels
             // Check network status  
             if (NetworkCheck.IsConnectedToInternet())
             {
+                IsDownloading = true;
+
                 var client = new System.Net.Http.HttpClient();
                 var response = await client.GetAsync("http://astro.milantiev.com/allsky/stat.php");
                 string contactsJson = await response.Content.ReadAsStringAsync(); //Getting response  
@@ -164,8 +173,9 @@ namespace ObsControlMobile.ViewModels
 
                 DateTime ASDT = ServiceClass.UnixTimeStampToDateTime(ObjContactList.timestamp);
 
-                CurrentDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
+                AllSkyDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
 
+                IsDownloading = false;
             }
             else
             {

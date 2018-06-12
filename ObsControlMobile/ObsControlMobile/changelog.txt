@@ -9,6 +9,8 @@ to do:
 - push notification on roof status
 - switch power on/off
 
+1.1 [12.06.2018]
+- read IQP data for last session
 
 1.0.3 [12.06.2018]
 - trying to read IQP Data
