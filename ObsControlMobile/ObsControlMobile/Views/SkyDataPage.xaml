@@ -8,11 +8,11 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding AllSkyDate, StringFormat='Upd:{0}'}">
-            <ToolbarItem.Icon>
+            <!--<ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP" Value="add.png"/>
                 </OnPlatform>
-            </ToolbarItem.Icon>
+            </ToolbarItem.Icon>-->
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 

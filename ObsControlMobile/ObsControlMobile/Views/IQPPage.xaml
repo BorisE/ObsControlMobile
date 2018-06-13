@@ -8,11 +8,11 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding LastSessionDate, StringFormat='Upd:{0:dd-MM-yyyy HH:mm:ss}'}">
-            <ToolbarItem.Icon>
+            <!--<ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP" Value="add.png"/>
                 </OnPlatform>
-            </ToolbarItem.Icon>
+            </ToolbarItem.Icon>-->
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
