@@ -10,10 +10,10 @@ namespace ObsControlMobile.Models
                 {"R","OrangeRed"},
                 {"G","LightGreen"},
                 {"B","CornflowerBlue"},
-                {"L","Azure"},
-                {"Ha","Azure"},
-                {"Sii","Azure"},
-                {"Oiii","Azure"},
+                {"L","lightsteelblue"},
+                {"Ha","mediumorchid"},
+                {"Sii","rosybrown"},
+                {"Oiii","darkolivegreen"},
             };
     }
 
@@ -29,7 +29,15 @@ namespace ObsControlMobile.Models
                 return retst;
             }
         }
-        public string Description { get; set; }
+        public DateTime DateObsMsk
+        {
+            get {
+                DateTime MSK = DateObsUTC.ToLocalTime();
+                return MSK;
+            }
+        }   
+
+        public string Description { get; set; } //not used
 
         //DSS
         public Int32 StarsNumber { get; set; }

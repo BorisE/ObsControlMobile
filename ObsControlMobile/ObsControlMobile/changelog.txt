@@ -4,10 +4,11 @@
 Special software for getting information on Astrohostel.ru remote observatory
 
 to do:
-- read IQP data for current session
 - read roof status
-- push notification on roof status
+- configuration dialog
 - switch power on/off
+- push notification on roof status
+
 
 1.1 [12.06.2018]
 - read IQP data for last session

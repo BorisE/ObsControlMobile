@@ -38,6 +38,7 @@
                                         <Label Text="{Binding ImageFilter, StringFormat='({0})'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
                                         <Label Text="{Binding FWHM, StringFormat='FWHM: {0:F2}&quot;'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
                                         <Label Text="{Binding ObjAlt, StringFormat='Alt: {0:F0}°'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                        <Label Text="{Binding DateObsMsk, StringFormat=' {0:dd-MM-yyyy HH:mm:ss}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                         <Label Text="{Binding StarsNumber, StringFormat='Stars: {0:N0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />
