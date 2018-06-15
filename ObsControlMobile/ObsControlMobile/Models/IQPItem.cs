@@ -7,7 +7,7 @@ namespace ObsControlMobile.Models
     {
         public static Dictionary<string, string> FilterColors = new Dictionary<string, string>
             {
-                {"R","OrangeRed"},
+                {"R","crimson"},
                 {"G","LightGreen"},
                 {"B","CornflowerBlue"},
                 {"L","lightsteelblue"},
@@ -32,7 +32,7 @@ namespace ObsControlMobile.Models
         public DateTime DateObsMsk
         {
             get {
-                DateTime MSK = DateObsUTC.ToLocalTime();
+                DateTime MSK = AsrtoUtils.ServiceClass.ConvertToLocal(DateObsUTC);
                 return MSK;
             }
         }   
