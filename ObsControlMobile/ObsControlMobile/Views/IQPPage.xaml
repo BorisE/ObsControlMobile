@@ -8,11 +8,11 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding LastSessionDate, StringFormat='Upd:{0:dd-MM-yyyy HH:mm:ss}'}">
-            <!--<ToolbarItem.Icon>
-                <OnPlatform x:TypeArguments="FileImageSource">
+            <ToolbarItem.Icon>
+                <!--<OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP" Value="add.png"/>
-                </OnPlatform>
-            </ToolbarItem.Icon>-->
+                </OnPlatform>-->
+            </ToolbarItem.Icon>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
@@ -30,7 +30,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                 <BoxView Color="{Binding Color}" WidthRequest="10" HeightRequest="50" />
                                 <StackLayout Padding="10">
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
@@ -39,7 +39,7 @@
                                         <Label Text="FWHM:" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
                                         <Label Text="{Binding FWHM, StringFormat='\{0:F2}&quot;'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" FontAttributes="Bold"/>
                                         <Label Text="{Binding ObjAlt, StringFormat='Alt: {0:F0}°'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
-                                        <Label Text="{Binding DateObsMsk, StringFormat='\{0:HH:mm:ss dd-MM}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+                                        <Label Text="{Binding DateObsMsk, StringFormat='\{0:HH:mm:ss}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="16" HorizontalTextAlignment="End" HorizontalOptions="FillAndExpand"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                         <Label Text="{Binding StarsNumber, StringFormat='Stars: {0:N0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="13" />

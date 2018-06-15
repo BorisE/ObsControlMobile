@@ -29,7 +29,14 @@ namespace ObsControlMobile
 
 		protected override void OnResume ()
 		{
-			// Handle when your app resumes
-		}
+            // Handle when your app resumes
+            System.Collections.Generic.IList<Page> MP = ((TabbedPage)MainPage).Children;
+            foreach (Page pg in MP)
+            {
+                System.Console.WriteLine(prime);
+            }
+
+
+        }
 	}
 }

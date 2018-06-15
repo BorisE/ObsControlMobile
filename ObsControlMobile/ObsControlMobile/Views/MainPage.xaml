@@ -28,7 +28,7 @@
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="Items">
+        <!--<NavigationPage Title="Items">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_feed.png"/>
@@ -37,7 +37,7 @@
             <x:Arguments>
                 <views:ItemsPage />
             </x:Arguments>
-        </NavigationPage>
+        </NavigationPage>-->
 
         <NavigationPage Title="About">
             <NavigationPage.Icon>

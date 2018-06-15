@@ -46,7 +46,14 @@ namespace ObsControlMobile.Models
         public double AspectRatio { get; set; }
 
         //FITS
-        public DateTime DateObsUTC { get; set; }   //DATE-OBS
+        //DATE-OBS
+        DateTime dateobsutc;
+        public DateTime DateObsUTC {
+            get { return dateobsutc; }
+            set {
+                dateobsutc = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+            }
+        }   
         public double ImageExposure { get; set; }   //EXPOSURE
         public string ImageFilter { get; set; }   //FILTER
         public string ImageType { get; set; }   //IMAGETYP
