@@ -227,6 +227,7 @@ namespace ObsControlMobile.ViewModels
             IsBusy = false;
         }
 
+
         public void RecalculateTimes()
         {
             SunsetTimeSt = AstroUtilsProp.SunSetDateTime().ToString("HH:mm"); 

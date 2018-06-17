@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ObsControlMobile.Views.ConfigPage"
+             xmlns:vm="clr-namespace:ObsControlMobile.ViewModels"
+             xmlns:local="clr-namespace:ObsControlMobile.Views"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:ConfigViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <!--<StackLayout VerticalOptions="StartAndExpand">
+            <Label Text="Username" />
+            <Entry x:Name="usernameEntry" Placeholder="username" />
+            <Label Text="Password" />
+            <Entry x:Name="passwordEntry" IsPassword="true" />
+            <Button Text="Login" Clicked="OnLoginButtonClicked" />
+            <Label x:Name="messageLabel" />
+        </StackLayout>-->
+
+
+        <StackLayout BackgroundColor="Red" VerticalOptions="StartAndExpand">
+            <Label Text="URL" HorizontalOptions="CenterAndExpand" FontSize="16"/>
+            <Entry x:Name="iqpURL" Placeholder="IQP URL" Keyboard="Url" FontSize="16"></Entry>
+
+            <!--<Label Text="Login data" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" BackgroundColor="Beige"/>-->
+
+            <Label Text="Login" />
+            <Entry x:Name="loginEntry" Placeholder="Login" Keyboard="Default"></Entry>
+            <Label Text="Password" />
+            <Entry x:Name="passEntry" Placeholder="Password" Keyboard="Default" IsPassword="True"></Entry>
+
+            <Button Text="Save"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
