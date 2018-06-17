@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using ObsControlMobile.Views;
 using Xamarin.Forms.Xaml;
 using System.Diagnostics;
+using System.Collections.Generic;
+using ObsControlMobile.ViewModels;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace ObsControlMobile
@@ -33,14 +35,32 @@ namespace ObsControlMobile
 		protected override void OnResume ()
 		{
             // Handle when your app resumes
-            //System.Collections.Generic.IList<Page> MP = ((TabbedPage)MainPage).Children;
-            //foreach (Page pg in MP)
-            //{
-            //    if (pg.Title=="IQP")
-            //        ((IQPPage)pg).viewModel.GetJSON();
-            //}
-
+            try
+            {
+                TabbedPage MainPageTabbed = (TabbedPage)MainPage;
+                Debug.WriteLine("OnResume, MainPageTabbed created");
+                IList<Page> ChildPages = MainPageTabbed.Children;
+                Debug.WriteLine("OnResume, ChildPages created");
+                foreach (Page pg in ChildPages)
+                {
+                    if (pg.Title == "IQP")
+                    {
+                        Debug.WriteLine("OnResume, IQP found");
+                        IQPPage _iqppage = (IQPPage)pg; //problem is here!!!
+                        Debug.WriteLine("OnResume, IQPpage created");
+                        IQPViewModel _iqpmodel = _iqppage.viewModel;
+                        Debug.WriteLine("OnResume, IQPViewModel created");
+                        _iqpmodel.LoadIQPItemsCommand.Execute(null);
+                        Debug.WriteLine("OnResume, LoadIQPItemsCommand executed");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception onResume");
+                Debug.WriteLine(ex);
+            }
 
         }
-	}
+    }
 }

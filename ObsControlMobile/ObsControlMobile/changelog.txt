@@ -4,8 +4,8 @@
 Special software for getting information on Astrohostel.ru remote observatory
 
 to do:
-- read roof status
 - configuration dialog
+- read roof status
 - switch power on/off
 - push notification on roof status
 
