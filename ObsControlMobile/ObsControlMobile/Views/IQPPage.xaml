@@ -19,10 +19,10 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="ItemsListViewIQP" 
-                ItemsSource="{Binding Items}"
+                ItemsSource="{Binding IQPItems}"
                 VerticalOptions="FillAndExpand"
                  HasUnevenRows="true"
-                 RefreshCommand="{Binding LoadItemsCommand}"
+                 RefreshCommand="{Binding LoadIQPItemsCommand}"
                  IsPullToRefreshEnabled="true"
                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                  CachingStrategy="RecycleElement"
@@ -65,7 +65,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsDownloading}"/>
+            <!--<ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsBusy}"/>-->
         </StackLayout>
     </ContentPage.Content>
     

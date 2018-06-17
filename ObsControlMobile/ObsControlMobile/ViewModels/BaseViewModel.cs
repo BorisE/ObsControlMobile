@@ -12,7 +12,7 @@ namespace ObsControlMobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<IQPItem> DataStore => DependencyService.Get<IDataStore<IQPItem>>() ?? new MockDataStore();
+        public IDataStore<IQPItem> DataStore => DependencyService.Get<IDataStore<IQPItem>>() ?? new IQPDataStore();
 
         bool isBusy = false;
         public bool IsBusy

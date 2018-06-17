@@ -1,24 +1,25 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.Net;
+using System.Net.Http;
 using System.Windows.Input;
 
 using AsrtoUtils;
 using Newtonsoft.Json;
+using ObsControlMobile.Models;
 using ObsControlMobile.Services;
 using Xamarin.Forms;
 
 namespace ObsControlMobile.ViewModels
 {
-    public class AllSkyDataJSON
-    {
-        //{"filename":"allsky-current.jpg","timestamp":1528686365}
-        public string filename = "";
-        public int timestamp = 0;
-    }
+
 
     public class SkyDataViewModel : BaseViewModel
     {
         Page ParentPage;
 
+        public DownloadResult GetDataResult = DownloadResult.Undefined;
 
 
         #region AllSky
@@ -43,19 +44,6 @@ namespace ObsControlMobile.ViewModels
             get { return currentdate; }
             set { SetProperty(ref currentdate, value); }
         }
-        
-
-
-        #endregion AllSky
-
-
-
-        string meteoblueiframe = "";
-        public string MeteoBlueIFrame
-        {
-            get { return meteoblueiframe; }
-            set { SetProperty(ref meteoblueiframe, value); }
-        }
 
         bool isdownloading = false;
         public bool IsDownloading
@@ -63,6 +51,18 @@ namespace ObsControlMobile.ViewModels
             get { return isdownloading; }
             set { SetProperty(ref isdownloading, value); }
         }
+        #endregion AllSky
+
+        #region Meteoblue
+        string meteoblueiframe = "";
+        public string MeteoBlueIFrame
+        {
+            get { return meteoblueiframe; }
+            set { SetProperty(ref meteoblueiframe, value); }
+        }
+        #endregion meteoblue    
+
+
 
         #region Timings
 
@@ -130,14 +130,16 @@ namespace ObsControlMobile.ViewModels
             ParentPage = ExtPP;
 
             Title = "Sky";
-            RefreshAllSkyImage();
-
-            MeteoBlueIFrame = "<p><iframe style=\"width: 520px; height: 709px;\" src=\"https://www.meteoblue.com/en/weather/widget/seeing/il%27skiy_russia_556951?geoloc=fixed\" width=\"300\" height=\"150\" frameborder=\"0\" scrolling=\"NO\" sandbox=\"allow-same-origin allow-scripts allow-popups\"></iframe></p>";
-
 
             AllSkyTapCommand = new Command(() => RefreshAllSkyImage());
             RefreshAllSkyCommand = new Command(() => RefreshAllSkyImage());
             OpenSiteCommand = new Command(() => Device.OpenUri(new Uri("http://www.astromania.info/observatory/")));
+
+            //Allsky Data
+            RefreshAllSkyImage();
+
+            //Meteoblue frame
+            MeteoBlueIFrame = "<p><iframe style=\"width: 520px; height: 709px;\" src=\"https://www.meteoblue.com/en/weather/widget/seeing/il%27skiy_russia_556951?geoloc=fixed\" width=\"300\" height=\"150\" frameborder=\"0\" scrolling=\"NO\" sandbox=\"allow-same-origin allow-scripts allow-popups\"></iframe></p>";
 
             //Timings
             RecalculateTimes();
@@ -145,42 +147,84 @@ namespace ObsControlMobile.ViewModels
 
         public void RefreshAllSkyImage()
         {
-            //Allsky
+            //Allsky URL propertie with cache tweak
             AllSkyURL = "http://astro.milantiev.com/allsky-current.jpg?time=" + DateTime.Now.Ticks;
+            //Set CurrentDate propertie
             CurrentDate = DateTime.Now.ToString("HH:mm:ss");
-
-            GetJSON();
-
+            //Download status data
+            GetAllSkyJSONData();
         }
 
-        public async void GetJSON()
+        private async void GetAllSkyJSONData()
         {
+            Debug.WriteLine("GetAllSkyJSONData enter");
+            if (IsBusy)
+            {
+                Debug.WriteLine("GetAllSkyJSONData already busy, return");
+                return;
+            }
+            IsBusy = true;
+            GetDataResult = DownloadResult.Undefined;
+            Debug.WriteLine("GetAllSkyJSONData started, DownloadResult:" + GetDataResult);
+
             // Check network status  
             if (NetworkCheck.IsConnectedToInternet())
             {
-                IsDownloading = true;
-
-                var client = new System.Net.Http.HttpClient();
-                var response = await client.GetAsync("http://astro.milantiev.com/allsky/stat.php");
-                string contactsJson = await response.Content.ReadAsStringAsync(); //Getting response  
-
-                AllSkyDataJSON ObjContactList = new AllSkyDataJSON();
-                if (contactsJson != "")
+                try
                 {
-                    //Converting JSON Array Objects into generic list  
-                    ObjContactList = JsonConvert.DeserializeObject<AllSkyDataJSON>(contactsJson);
+                    //1. Download data
+                    Uri geturi = new Uri("http://astro.milantiev.com/allsky/stat.php"); //replace your xml url  
+                    HttpClient client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync(geturi);
+
+                    Debug.WriteLine("GetAllSkyJSONData download completead, StatusCode:" + response.StatusCode);
+
+                    //2. If data ok
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        //2.2. Read string
+                        string responseSt = await response.Content.ReadAsStringAsync();
+                        Debug.WriteLine("GetAllSkyJSONData DOWNLOAD DATA:" + responseSt);
+
+                        try
+                        {
+                            //3.1 Set JSON parse options
+                            JsonSerializerSettings JSONSettings = new JsonSerializerSettings();
+                            JSONSettings.Culture = new CultureInfo("ru-RU");
+                            JSONSettings.Culture.NumberFormat.NumberDecimalSeparator = ".";
+                            JSONSettings.NullValueHandling = NullValueHandling.Ignore;
+
+                            //3.2. JSON convert
+                            AllSkyDataClass objResponse = JsonConvert.DeserializeObject<AllSkyDataClass>(responseSt, JSONSettings);
+
+                            //4. Data setting
+                            DateTime ASDT = ServiceClass.UnixTimeStampToDateTime(objResponse.timestamp);
+                            AllSkyDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("Exception in GetAllSkyJSONData JSON parsing");
+                            Debug.WriteLine(ex);
+                            GetDataResult = DownloadResult.ParseError;
+                        }
+                    }
+                    else
+                    {
+                        GetDataResult = DownloadResult.DownloadError;
+                    }
                 }
-
-                DateTime ASDT = ServiceClass.UnixTimeStampToDateTime(ObjContactList.timestamp);
-
-                AllSkyDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
-
-                IsDownloading = false;
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Exception in GetAllSkyJSONData download");
+                    Debug.WriteLine(ex);
+                    GetDataResult = DownloadResult.DownloadError;
+                }
             }
             else
             {
                 await ParentPage.DisplayAlert("Get allsky data", "No network is available.", "Ok");
             }
+            IsBusy = false;
         }
 
         public void RecalculateTimes()

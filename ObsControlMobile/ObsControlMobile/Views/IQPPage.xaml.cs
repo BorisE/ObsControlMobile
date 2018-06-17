@@ -16,13 +16,13 @@ namespace ObsControlMobile.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class IQPPage : ContentPage
 	{
-        ItemsViewModel viewModel;
+        public IQPViewModel viewModel;
 
         public IQPPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel(this);
+            BindingContext = viewModel = new IQPViewModel(this);
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -37,17 +37,14 @@ namespace ObsControlMobile.Views
             ItemsListViewIQP.SelectedItem = null;
         }
 
-        async void AddItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
-        }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            //if empty, reload
+            if (viewModel.IQPItems.Count == 0)
+                viewModel.LoadIQPItemsCommand.Execute(null);
         }
     }
 }

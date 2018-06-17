@@ -16,13 +16,13 @@ namespace ObsControlMobile.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ItemsPage : ContentPage
 	{
-        ItemsViewModel viewModel;
+        IQPViewModel viewModel;
 
         public ItemsPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel(this);
+            BindingContext = viewModel = new IQPViewModel(this);
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -46,8 +46,8 @@ namespace ObsControlMobile.Views
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            if (viewModel.IQPItems.Count == 0)
+                viewModel.LoadIQPItemsCommand.Execute(null);
         }
     }
 }

@@ -7,12 +7,12 @@ using Android.App;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ObsControlMobile.Android")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Observatory Control Mobile App")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("astromania.info")]
 [assembly: AssemblyProduct("ObsControlMobile.Android")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © 2018 by Boris Emchenko")]
+[assembly: AssemblyTrademark("Boris Emchenko")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
@@ -26,7 +26,7 @@ using Android.App;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.*")]
+[assembly: AssemblyVersion("1.1.2.*")]
 [assembly: AssemblyFileVersion("1.1.*")]
 
 // Add some common permissions, these can be removed if not needed

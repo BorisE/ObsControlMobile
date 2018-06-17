@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using ObsControlMobile.Views;
 using Xamarin.Forms.Xaml;
+using System.Diagnostics;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace ObsControlMobile
@@ -15,7 +16,9 @@ namespace ObsControlMobile
 
 
 			MainPage = new MainPage();
-		}
+
+            Debug.WriteLine("Program was started");
+        }
 
 		protected override void OnStart ()
 		{
@@ -30,11 +33,12 @@ namespace ObsControlMobile
 		protected override void OnResume ()
 		{
             // Handle when your app resumes
-            System.Collections.Generic.IList<Page> MP = ((TabbedPage)MainPage).Children;
-            foreach (Page pg in MP)
-            {
-                System.Console.WriteLine(prime);
-            }
+            //System.Collections.Generic.IList<Page> MP = ((TabbedPage)MainPage).Children;
+            //foreach (Page pg in MP)
+            //{
+            //    if (pg.Title=="IQP")
+            //        ((IQPPage)pg).viewModel.GetJSON();
+            //}
 
 
         }
