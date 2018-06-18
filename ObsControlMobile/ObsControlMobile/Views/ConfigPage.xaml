@@ -21,18 +21,22 @@
         </StackLayout>-->
 
 
-        <StackLayout BackgroundColor="Red" VerticalOptions="StartAndExpand">
-            <Label Text="URL" HorizontalOptions="CenterAndExpand" FontSize="16"/>
-            <Entry x:Name="iqpURL" Placeholder="IQP URL" Keyboard="Url" FontSize="16"></Entry>
+        <StackLayout VerticalOptions="StartAndExpand">
+            <Label Text="IQP Settings" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" FontSize="16"/>
+            <Label Text="IQP URL" />
+            <Entry x:Name="iqpURL" Placeholder="IQP URL" Keyboard="Url" FontSize="13"></Entry>
 
             <!--<Label Text="Login data" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" BackgroundColor="Beige"/>-->
 
+            <Label Text="Astrohostel credentials" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" FontSize="16" />
             <Label Text="Login" />
-            <Entry x:Name="loginEntry" Placeholder="Login" Keyboard="Default"></Entry>
+            <Entry x:Name="loginEntry" Placeholder="Login" Keyboard="Default" FontSize="13"></Entry>
             <Label Text="Password" />
-            <Entry x:Name="passEntry" Placeholder="Password" Keyboard="Default" IsPassword="True"></Entry>
+            <Entry x:Name="passEntry" Placeholder="Password" Keyboard="Default" IsPassword="True" FontSize="13"></Entry>
 
-            <Button Text="Save"></Button>
+            <Button Text="Save" Clicked="OnSaveButtonClicked" ></Button>
+
+            <Label x:Name="messageLabel" Text="Error! Please correct" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" FontSize="13" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
