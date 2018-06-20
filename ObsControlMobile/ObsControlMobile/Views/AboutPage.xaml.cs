@@ -12,5 +12,10 @@ namespace ObsControlMobile.Views
 		{
 			InitializeComponent ();
 		}
-	}
+
+        async void GoConfig_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new NavigationPage(new ConfigPage()));
+        }
+    }
 }
