@@ -6,9 +6,7 @@
              xmlns:local="clr-namespace:ObsControlMobile.Views"
              Title="{Binding Title}">
     
-    <ContentPage.BindingContext>
-        <vm:ConfigViewModel />
-    </ContentPage.BindingContext>
+
     
     <ContentPage.Content>
         <!--<StackLayout VerticalOptions="StartAndExpand">
@@ -22,21 +20,21 @@
 
 
         <StackLayout VerticalOptions="StartAndExpand">
-            <Label Text="IQP Settings" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" FontSize="Medium"/>
+            <Label Text="IQP Settings" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" FontSize="Medium" Margin="0,20,0,0"/>
             <Label Text="IQP URL" />
-            <Entry x:Name="iqpURL" Placeholder="IQP URL" Keyboard="Url" FontSize="13" Text="{Binding IQPURL}"></Entry>
+            <Entry x:Name="iqpURL" Placeholder="IQP URL" Keyboard="Url" FontSize="Small" Text="{Binding IQPURL}"></Entry>
 
             <!--<Label Text="Login data" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" BackgroundColor="Beige"/>-->
 
-            <Label Text="Astrohostel credentials" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" FontSize="16" Margin="0,20,0,0"/>
+            <Label Text="Astrohostel credentials" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" FontSize="Medium" Margin="0,20,0,0"/>
             <Label Text="Login" />
-            <Entry x:Name="loginEntry" Placeholder="Login" Keyboard="Default" FontSize="13" Text="{Binding Login}"></Entry>
+            <Entry x:Name="loginEntry" Placeholder="Login" Keyboard="Default" FontSize="Small" Text="{Binding Login}"></Entry>
             <Label Text="Password" />
-            <Entry x:Name="passEntry" Placeholder="Password" Keyboard="Default" IsPassword="True" FontSize="13" Text="{Binding Pass}"></Entry>
+            <Entry x:Name="passEntry" Placeholder="Password" Keyboard="Default" IsPassword="True" FontSize="Small" Text="{Binding Pass}"></Entry>
 
             <Button Text="Save" Command="{Binding SaveButtonClickCommand}"></Button>
 
-            <Label x:Name="messageLabel" Text="Error! Please correct" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" FontSize="16" TextColor="Red"/>
+            <Label x:Name="messageLabel"  Text="{Binding ErrorMessage}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" FontSize="Small" TextColor="Red"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

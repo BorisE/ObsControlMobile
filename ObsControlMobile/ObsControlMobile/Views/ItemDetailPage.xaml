@@ -3,10 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ObsControlMobile.Views.ItemDetailPage"
              Title="{Binding Title}">
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Item.FileName}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Item.Description}" FontSize="Small"/>
+    
+    <StackLayout Spacing="10" Padding="15">
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+            <Label Text="Object:" FontSize="Medium" />
+            <Label Text="{Binding Item.ObjName}" FontSize="Medium" FontAttributes="Bold"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Filter:" FontSize="Medium" />
+            <Label Text="{Binding Item.ImageFilter}"  FontSize="Medium"   FontAttributes="Bold"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding Item.ObjRA, StringFormat='RA: {0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Small" VerticalOptions="CenterAndExpand"/>
+            <Label Text="{Binding Item.ObjDec, StringFormat='Dec: {0:N0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Small" VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Altitude:" FontSize="Medium" />
+            <Label Text="{Binding Item.ObjAlt, StringFormat='\{0:F0}°'}"  FontSize="Medium"   FontAttributes="Bold"/>
+            <Label Text="{Binding Item.ObjAz, StringFormat='Az: {0:N0}°'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Medium" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Time:" FontSize="Medium" />
+            <Label Text="{Binding Item.DateObsMsk, StringFormat='\{0:HH:mm:ss dd-MM-yyyy}'}"  FontSize="Medium"   FontAttributes="Bold"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Exposure:" FontSize="Medium" />
+            <Label Text="{Binding Item.ImageExposure, StringFormat='\{0:N0} sec'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Medium"   FontAttributes="Bold"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Temperature:" FontSize="Medium" />
+            <Label Text="{Binding Item.ImageTemp, StringFormat='\{0:F1}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Medium"   FontAttributes="Bold"/>
+            <Label Text="|" FontSize="Medium" />
+            <Label Text="{Binding Item.ImageSetTemp, StringFormat='\{0:F0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Medium" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="FWHM:" FontSize="Medium" />
+            <Label Text="{Binding Item.FWHM, StringFormat='\{0:F2}&quot;'}"  FontSize="Medium"   FontAttributes="Bold"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="StarsNumber:" FontSize="Medium" />
+            <Label Text="{Binding Item.StarsNumber, StringFormat='\{0:N0}'}"  FontSize="Medium"   FontAttributes="Bold"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="SkyBackground:" FontSize="Medium" />
+            <Label Text="{Binding Item.SkyBackground, StringFormat='\{0:P0}'}"  FontSize="Medium"   FontAttributes="Bold"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="AspectRatio:" FontSize="Medium" />
+            <Label Text="{Binding Item.AspectRatio, StringFormat='\{0:F3}'}"  FontSize="Medium"   FontAttributes="Bold"/>
+        </StackLayout>
+
+
+        <Label Text="File:" FontSize="Medium" />
+        <Label Text="{Binding Item.FITSFileName}" FontSize="Small"/>
+
+
+
     </StackLayout>
 </ContentPage>

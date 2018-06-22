@@ -108,7 +108,7 @@ namespace ObsControlMobile.Services
                     {
                         //1. Download data
                         Debug.WriteLine("GetItemsAsync download will start now, DownloadResult:" + GetDataResult);
-                        Uri geturi = new Uri("http://astromania.info/iqp_data/getcurrentsession.php"); //replace your xml url  
+                        Uri geturi = new Uri(Settings.IQPURL); //replace your xml url  
                         HttpClient client = new HttpClient();
                         HttpResponseMessage response = await client.GetAsync(geturi);
 
