@@ -5,13 +5,17 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ObsControlMobile.Services
-{ 
+{
+    public static class VersionData
+    {
+        public static string Version = "";
+    }
+
     public static class Settings
     {
         public static string DefaultIQPURL = "http://astromania.info/iqp_data/getcurrentsession.php";
         public static string DefaultLogin = "BorisE";
         public static string DefaultPass = "1";
-
 
         private static ISettings AppSettings => CrossSettings.Current;
 

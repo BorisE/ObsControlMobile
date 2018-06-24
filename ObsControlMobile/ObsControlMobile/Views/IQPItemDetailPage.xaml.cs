@@ -9,11 +9,11 @@ using ObsControlMobile.ViewModels;
 namespace ObsControlMobile.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ItemDetailPage : ContentPage
+	public partial class IQPItemDetailPage : ContentPage
 	{
-        ItemDetailViewModel viewModel;
+        IQPItemDetailViewModel viewModel;
 
-        public ItemDetailPage(ItemDetailViewModel viewModel)
+        public IQPItemDetailPage(IQPItemDetailViewModel viewModel)
         {
             InitializeComponent();
 
@@ -21,7 +21,7 @@ namespace ObsControlMobile.Views
         }
 
         //for LiveEdit XAML Form purpose
-        //public ItemDetailPage()
+        //public IQPItemDetailPage()
         //{
         //    InitializeComponent();
 

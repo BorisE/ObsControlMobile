@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ObsControlMobile.Views.ItemDetailPage"
+             x:Class="ObsControlMobile.Views.IQPItemDetailPage"
              Title="{Binding Title}">
 
     <ContentPage.Content>
@@ -9,10 +9,6 @@
             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                 <Label Text="Object:" FontSize="Medium" />
                 <Label Text="{Binding Item.ObjName}" FontSize="Medium" FontAttributes="Bold"/>
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="{Binding Item.ObjRA, StringFormat='RA: {0}'}" FontSize="Medium" />
-                <Label Text="{Binding Item.ObjDec, StringFormat='Dec: {0:N0}'}" FontSize="Medium" />
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">
@@ -47,10 +43,13 @@
                 <Label Text="{Binding Item.ObjAz, StringFormat='Az: {0:N0}°'}" FontSize="Medium" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Item.ObjRA, StringFormat='RA: {0}'}" FontSize="Medium" />
+                <Label Text="{Binding Item.ObjDec, StringFormat='Dec: {0}'}" FontSize="Medium" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
                 <Label Text="Time:" FontSize="Medium" />
                 <Label Text="{Binding Item.DateObsMsk, StringFormat='\{0:HH:mm:ss dd-MM-yyyy}'}"  FontSize="Medium"   FontAttributes="Bold"/>
             </StackLayout>
-
             <StackLayout Orientation="Horizontal">
                 <Label Text="Temperature:" FontSize="Medium" />
                 <Label Text="{Binding Item.ImageTemp, StringFormat='\{0:F1}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Medium"   FontAttributes="Bold"/>

@@ -31,7 +31,7 @@ namespace ObsControlMobile.Views
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            await Navigation.PushAsync(new IQPItemDetailPage(new IQPItemDetailViewModel(item)));
 
             // Manually deselect item.
             ItemsListViewIQP.SelectedItem = null;

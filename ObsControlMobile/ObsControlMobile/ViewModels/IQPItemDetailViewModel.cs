@@ -4,10 +4,10 @@ using ObsControlMobile.Models;
 
 namespace ObsControlMobile.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel
+    public class IQPItemDetailViewModel : BaseViewModel
     {
         public IQPItem Item { get; set; }
-        public ItemDetailViewModel(IQPItem item = null)
+        public IQPItemDetailViewModel(IQPItem item = null)
         {
             Title = item?.FITSFileName;
             Item = item;

@@ -24,6 +24,15 @@
     <Compile Update="Views\IQPPage.xaml.cs">
       <DependentUpon>IQPPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\IQPItemDetailPage.xaml.cs">
+      <DependentUpon>IQPItemDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\_NewItemPage.xaml.cs">
+      <DependentUpon>_NewItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\_ItemsPage.xaml.cs">
+      <DependentUpon>_ItemsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\SkyDataPage.xaml.cs">
       <DependentUpon>SkyDataPage.xaml</DependentUpon>
     </Compile>

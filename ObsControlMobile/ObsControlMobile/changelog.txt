@@ -9,6 +9,10 @@ to do:
 - switch power on/off
 - push notification on roof status
 
+1.2.1 [24.06.2018]
+- configuration page was moved to about page
+- automatic version number
+
 1.2 [21.06.2018]
 - configuration dialog
 - iqp deatail page

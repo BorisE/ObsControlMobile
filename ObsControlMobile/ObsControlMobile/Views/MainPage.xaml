@@ -39,7 +39,7 @@
             </x:Arguments>
         </NavigationPage>-->
 
-        <NavigationPage Title="Config">
+        <!--<NavigationPage Title="Config">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_about.png"/>
@@ -48,7 +48,7 @@
             <x:Arguments>
                 <views:ConfigPage />
             </x:Arguments>
-        </NavigationPage>
+        </NavigationPage>-->
 
         <NavigationPage Title="About">
             <NavigationPage.Icon>

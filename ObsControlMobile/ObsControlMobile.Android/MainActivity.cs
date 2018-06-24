@@ -6,6 +6,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
+using Android.Content;
+using ObsControlMobile.Services;
 
 namespace ObsControlMobile.Droid
 {
@@ -16,6 +19,10 @@ namespace ObsControlMobile.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+
+            Context context = this.ApplicationContext;
+            var version = context.PackageManager.GetPackageInfo(context.PackageName, 0).VersionName;
+            VersionData.Version = version;
 
             base.OnCreate(bundle);
 
