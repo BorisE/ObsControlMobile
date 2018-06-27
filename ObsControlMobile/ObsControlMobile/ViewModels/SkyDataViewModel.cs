@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 using AsrtoUtils;
@@ -152,7 +153,7 @@ namespace ObsControlMobile.ViewModels
             //Set CurrentDate propertie
             CurrentDate = DateTime.Now.ToString("HH:mm:ss");
             //Download status data
-            GetAllSkyJSONData();
+            GetAllSkyJSONData2();
         }
 
         private async void GetAllSkyJSONData()
@@ -219,6 +220,34 @@ namespace ObsControlMobile.ViewModels
                     Debug.WriteLine(ex);
                     GetDataResult = DownloadResult.DownloadError;
                 }
+            }
+            else
+            {
+                await ParentPage.DisplayAlert("Get allsky data", "No network is available.", "Ok");
+            }
+            IsBusy = false;
+        }
+
+
+        private async void GetAllSkyJSONData2()
+        {
+            Debug.WriteLine("GetAllSkyJSONData enter");
+            if (IsBusy)
+            {
+                Debug.WriteLine("GetAllSkyJSONData already busy, return");
+                return;
+            }
+            IsBusy = true;
+           
+            // Check network status  
+            if (NetworkCheck.IsConnectedToInternet())
+            {
+                Tuple<AllSkyDataClass, DownloadResult> allskyret;
+                allskyret = await Task.Run(() => NetworkCheck.GetJSON<AllSkyDataClass>("http://astro.milantiev.com/allsky/stat.php"));
+
+                //4. Data setting
+                DateTime ASDT = ServiceClass.UnixTimeStampToDateTime(allskyret.Item1.timestamp);
+                AllSkyDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
             }
             else
             {

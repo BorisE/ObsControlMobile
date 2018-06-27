@@ -9,6 +9,7 @@ namespace ObsControlMobile.Services
     public static class VersionData
     {
         public static string Version = "";
+        public static string Other = "";
     }
 
     public static class Settings

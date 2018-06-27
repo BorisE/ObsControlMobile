@@ -27,6 +27,9 @@
     <Compile Update="Views\IQPItemDetailPage.xaml.cs">
       <DependentUpon>IQPItemDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ObsStatusPage.xaml.cs">
+      <DependentUpon>ObsStatusPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\_NewItemPage.xaml.cs">
       <DependentUpon>_NewItemPage.xaml</DependentUpon>
     </Compile>
