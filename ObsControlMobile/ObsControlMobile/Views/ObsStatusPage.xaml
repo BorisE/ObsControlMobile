@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ObsControlMobile.Views.ObsStatusPage"
-             xmlns:vm="clr-namespace:ObsControlMobile.ViewModels"
+             xmlns:VM="clr-namespace:ObsControlMobile.ViewModels"
              xmlns:local="clr-namespace:ObsControlMobile.Views"
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding AllSkyDate, StringFormat='Upd:{0}'}">
+        <ToolbarItem Text="{Binding CurrentDate, StringFormat='Upd:{0}'}">
             <!--<ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP" Value="add.png"/>
@@ -17,64 +17,43 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <Grid RowSpacing="0">
+        <Grid RowSpacing="0" ColumnSpacing="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
             <!-- 1st row -->
-            <local:AspectRatioContainer AspectRatio="0.747" BackgroundColor="DeepSkyBlue">
-                <Image Source="{Binding AllSkyURL}" HorizontalOptions="Fill" Aspect ="AspectFill">
-                    <!-- 696px × 520px -->
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding AllSkyTapCommand}" NumberOfTapsRequired="2" />
-                    </Image.GestureRecognizers>
-                </Image>
-            </local:AspectRatioContainer>
+            <Label Grid.Row="0"  Grid.Column="0" Text="Roof status:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="0"  Grid.Column="1" Text="{Binding Obs2_Roof}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Roof_Color}"/>
+            <Label Grid.Row="0"  Grid.Column="2" Text="{Binding Obs2_Roof_Updated }" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Roof_Updated_Color}"/>
 
             <!-- 2nd row -->
-            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="1">
-                <Label Text="{Binding AllSkyDate}" HorizontalOptions="Center" BackgroundColor="OrangeRed"/>
-                <Label Text="{Binding CurrentDate}" HorizontalOptions="Center" BackgroundColor="MediumVioletRed" />
-            </StackLayout>-->
+            <Label Grid.Row="1"  Grid.Column="0" Text="IR:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="1"  Grid.Column="1" Text="{Binding ObsStatus2.ir.value}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Azure"/>
+            <Label Grid.Row="1"  Grid.Column="2" Text="{Binding ObsStatus2.ir.date }" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Aqua"/>
 
-            <!-- 3rd row TIMINGS -->
+
+
+            <Label Grid.Row="1" Text="{Binding CurrentDate}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+
+            <!-- 3rd row --><!--
             <StackLayout Grid.Row="2" Spacing="0" HorizontalOptions="CenterAndExpand">
-                <Grid BackgroundColor="Black" Padding="0,5,0,5" ColumnSpacing="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-                    <Label Text="{Binding SunsetTimeSt}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding CivTwilightEndTimeSt}" Grid.Column="1" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding NavTwilightEndTimeSt}" Grid.Column="2" BackgroundColor="Blue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding AstroTwilightEndTimeSt}" Grid.Column="3" BackgroundColor="DarkBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding AstroTwilightBegTimeSt}" Grid.Column="4" BackgroundColor="DarkBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding NavTwilightBegTimeSt}" Grid.Column="5" BackgroundColor="Blue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding CivTwilightBegTimeSt}" Grid.Column="6" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding SunriseTimeSt}" Grid.Column="7" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                </Grid>
+                <Label Text="{Binding CurrentDate}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
             </StackLayout>
 
-            <!-- 4th row. METEOBLUE -->
-            <ScrollView Grid.Row="3" HorizontalOptions="Fill"  BackgroundColor="Aquamarine" Margin="0,0,0,0">
-                <WebView HorizontalOptions="FillAndExpand" BackgroundColor="Beige">
-                    <WebView.Source>
-                        <HtmlWebViewSource Html="{Binding MeteoBlueIFrame}"/>
-                    </WebView.Source>
-                </WebView>
-            </ScrollView>
+            --><!-- 4th row. --><!--
+            <Label Grid.Row="1" Text="{Binding CurrentDate}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
 
-            <ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsBusy}"/>
+            <ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsBusy}"/>-->
         </Grid>
 
     </ContentPage.Content>

@@ -105,7 +105,7 @@ namespace ObsControlMobile.ViewModels
 
                     //update session name
                     DateTime.SpecifyKind(curSess, DateTimeKind.Utc);
-                    LastSessionDate = AsrtoUtils.ServiceClass.ConvertToLocal(curSess);
+                    LastSessionDate = AsrtoUtils.Conversion.DateTimeUtils.ConvertToLocal(curSess);
                 }
             }
             catch (Exception ex)

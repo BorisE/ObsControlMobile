@@ -82,9 +82,21 @@ namespace TestApp
             Console.WriteLine("Res: " + t2.Item2);
         }
 
+        static void ParseArrayExample()
+        {
+            string responseSt = "{\"1\":{\"ir\":{\"date\":\"2018-06-13 21:45\",\"value\":27.42},\"humidity\":{\"date\":\"2018-06-13 21:45\",\"value\":31.79},\"inside\":{\"date\":\"2018-06-13 21:45\",\"value\":32.18},\"akb\":{\"date\":\"2018-03-18 16:59\",\"value\":15.56}},\"2\":{\"ir\":{\"date\":\"2017-05-24 10:38\",\"value\":14.79},\"humidity\":{\"date\":\"2018-06-30 10:50\",\"value\":32.5},\"inside\":{\"date\":\"2018-06-30 10:50\",\"value\":35.6},\"roof\":{\"date\":\"2018-06-30 10:50\",\"value\":0}}}";
+
+            Dictionary<string, ObsStatusElement_Class> objResponse = JsonConvert.DeserializeObject<Dictionary<string,ObsStatusElement_Class>>(responseSt);
+
+            string stout = JsonConvert.SerializeObject(objResponse);
+            Console.Write("Dump: ");
+            Console.WriteLine(stout);
+
+        }
+
         static void Main(string[] args)
         {
-            Example();
+            ParseArrayExample();
             Console.ReadLine();
         }
     }

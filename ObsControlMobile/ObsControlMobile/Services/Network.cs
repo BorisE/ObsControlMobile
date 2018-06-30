@@ -7,11 +7,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using ObsControlMobile.Models;
 using Plugin.Connectivity;
 
 namespace ObsControlMobile.Services
 {
-    public class NetworkCheck
+    public class NetworkServices
     {
         public static bool IsConnectedToInternet()
         {
@@ -28,13 +29,13 @@ namespace ObsControlMobile.Services
 
         public static async Task<Tuple<T, DownloadResult>> GetJSON<T>(string stURL)
         {
-            Debug.WriteLine("GetJSON enter for "+ typeof(T));
+            Debug.WriteLine("GetJSON [" + typeof(T) + "] enter");
 
             //Return object
             T objResponse = default(T);
             DownloadResult retDataResult = DownloadResult.Undefined;
             // Check network status  
-            if (NetworkCheck.IsConnectedToInternet())
+            if (NetworkServices.IsConnectedToInternet())
             {
 
                 try
@@ -49,7 +50,7 @@ namespace ObsControlMobile.Services
                     {
                         //2.2. Read string
                         string responseSt = await response.Content.ReadAsStringAsync();
-                        Debug.WriteLine("GetJSON DOWNLOAD DATA:" + responseSt);
+                        Debug.WriteLine("GetJSON [" + typeof(T) + "] DOWNLOAD DATA:" + responseSt);
 
                         try
                         {
@@ -61,12 +62,13 @@ namespace ObsControlMobile.Services
 
                             //3.2. JSON convert
                             objResponse = JsonConvert.DeserializeObject<T>(responseSt, JSONSettings);
+                            Debug.WriteLine("GetJSON [" + typeof(T) + "] was converted to JSON:" + objResponse.ToString());
 
                             retDataResult = DownloadResult.Success;
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine("Exception in GetJSON JSON parsing");
+                            Debug.WriteLine("Exception in GetJSON [" + typeof(T) + "] JSON parsing");
                             Debug.WriteLine(ex);
                             retDataResult = DownloadResult.ParseError;
                         }
@@ -78,24 +80,22 @@ namespace ObsControlMobile.Services
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Exception in GetJSON download");
+                    Debug.WriteLine("Exception in GetJSON [" + typeof(T) + "] download");
                     Debug.WriteLine(ex);
                     retDataResult = DownloadResult.DownloadError;
                 }
             }
             else
             {
-                Debug.WriteLine("GetJSON - no network");
+                Debug.WriteLine("GetJSON  [" + typeof(T) + "]- no network");
                 retDataResult = DownloadResult.NoNetwork;
             }
-            Debug.WriteLine("GetJSON return status:"+ retDataResult);
+            Debug.WriteLine("GetJSON [" + typeof(T) + "] return status:" + retDataResult);
 
             return new Tuple<T, DownloadResult>(objResponse, retDataResult);
         }
 
+
     }
-
-
-
-
 }
+

@@ -14,10 +14,21 @@ namespace ObsControlMobile.Services
 
     public static class Settings
     {
+        #region Configuration settings
+        public static string ObsStatusURL = "http://astrohostel.ru/status/json";
+        public static string AllskyStatusURL = "http://astro.milantiev.com/allsky/stat.php";
+
+        #endregion
+
+
+        #region Settings class properties
         public static string DefaultIQPURL = "http://astromania.info/iqp_data/getcurrentsession.php";
         public static string DefaultLogin = "BorisE";
         public static string DefaultPass = "1";
 
+        /// <summary>
+        /// Main Settings Object reference
+        /// </summary>
         private static ISettings AppSettings => CrossSettings.Current;
 
         public static string IQPURL
@@ -41,5 +52,6 @@ namespace ObsControlMobile.Services
             get => AppSettings.GetValueOrDefault(nameof(Pass), DefaultPass);
             set => AppSettings.AddOrUpdateValue(nameof(Pass), value);
         }
+        #endregion Settings class properties
     }
 }

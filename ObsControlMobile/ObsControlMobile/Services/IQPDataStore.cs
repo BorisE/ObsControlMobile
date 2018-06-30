@@ -102,7 +102,7 @@ namespace ObsControlMobile.Services
                 Debug.WriteLine("GetItemsAsync started, DownloadResult:"+ GetDataResult);
 
                 //Check network status  
-                if (NetworkCheck.IsConnectedToInternet())
+                if (NetworkServices.IsConnectedToInternet())
                 {
                     try
                     {

@@ -34,6 +34,7 @@ namespace ObsControlMobile.ViewModels
                 return false;
 
             backingStore = value;
+
             onChanged?.Invoke();
             OnPropertyChanged(propertyName);
             return true;
@@ -41,10 +42,10 @@ namespace ObsControlMobile.ViewModels
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "", bool forcechange = false)
         {
             var changed = PropertyChanged;
-            if (changed == null)
+            if (changed == null && !forcechange)
                 return;
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));

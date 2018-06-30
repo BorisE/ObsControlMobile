@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 using AsrtoUtils;
+using AsrtoUtils.Conversion;
 using Newtonsoft.Json;
 using ObsControlMobile.Models;
 using ObsControlMobile.Services;
@@ -62,9 +63,7 @@ namespace ObsControlMobile.ViewModels
             set { SetProperty(ref meteoblueiframe, value); }
         }
         #endregion meteoblue    
-
-
-
+                
         #region Timings
 
         string sunsettimest = "";
@@ -124,8 +123,7 @@ namespace ObsControlMobile.ViewModels
         }
 
         #endregion Timings
-
-
+        
         public SkyDataViewModel(Page ExtPP)
         {
             ParentPage = ExtPP;
@@ -153,10 +151,10 @@ namespace ObsControlMobile.ViewModels
             //Set CurrentDate propertie
             CurrentDate = DateTime.Now.ToString("HH:mm:ss");
             //Download status data
-            GetAllSkyJSONData2();
+            GetAllSkyJSONData();
         }
 
-        private async void GetAllSkyJSONData()
+        private async void GetAllSkyJSONData_old()
         {
             Debug.WriteLine("GetAllSkyJSONData enter");
             if (IsBusy)
@@ -169,7 +167,7 @@ namespace ObsControlMobile.ViewModels
             Debug.WriteLine("GetAllSkyJSONData started, DownloadResult:" + GetDataResult);
 
             // Check network status  
-            if (NetworkCheck.IsConnectedToInternet())
+            if (NetworkServices.IsConnectedToInternet())
             {
                 try
                 {
@@ -199,8 +197,8 @@ namespace ObsControlMobile.ViewModels
                             AllSkyDataClass objResponse = JsonConvert.DeserializeObject<AllSkyDataClass>(responseSt, JSONSettings);
 
                             //4. Data setting
-                            DateTime ASDT = ServiceClass.UnixTimeStampToDateTime(objResponse.timestamp);
-                            AllSkyDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
+                            DateTime ASDT = DateTimeUtils.UnixTimeStampToDateTime(objResponse.timestamp);
+                            AllSkyDate = DateTimeUtils.ConvertToLocal(ASDT).ToString("HH:mm:ss");
                         }
                         catch (Exception ex)
                         {
@@ -229,25 +227,25 @@ namespace ObsControlMobile.ViewModels
         }
 
 
-        private async void GetAllSkyJSONData2()
+        private async void GetAllSkyJSONData()
         {
             Debug.WriteLine("GetAllSkyJSONData enter");
             if (IsBusy)
             {
-                Debug.WriteLine("GetAllSkyJSONData already busy, return");
+                Debug.WriteLine("GetAllSkyJSONData: GetJSON already busy, return");
                 return;
             }
             IsBusy = true;
            
             // Check network status  
-            if (NetworkCheck.IsConnectedToInternet())
+            if (NetworkServices.IsConnectedToInternet())
             {
                 Tuple<AllSkyDataClass, DownloadResult> allskyret;
-                allskyret = await Task.Run(() => NetworkCheck.GetJSON<AllSkyDataClass>("http://astro.milantiev.com/allsky/stat.php"));
+                allskyret = await Task.Run(() => NetworkServices.GetJSON<AllSkyDataClass>(Settings.AllskyStatusURL));
 
                 //4. Data setting
-                DateTime ASDT = ServiceClass.UnixTimeStampToDateTime(allskyret.Item1.timestamp);
-                AllSkyDate = ServiceClass.ConvertToLocal(ASDT).ToString("HH:mm:ss");
+                DateTime ASDT = DateTimeUtils.UnixTimeStampToDateTime(allskyret.Item1.timestamp);
+                AllSkyDate = DateTimeUtils.ConvertToLocal(ASDT).ToString("HH:mm:ss");
             }
             else
             {

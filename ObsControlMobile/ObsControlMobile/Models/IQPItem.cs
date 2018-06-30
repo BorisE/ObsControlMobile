@@ -32,7 +32,7 @@ namespace ObsControlMobile.Models
         public DateTime DateObsMsk
         {
             get {
-                DateTime MSK = AsrtoUtils.ServiceClass.ConvertToLocal(DateObsUTC);
+                DateTime MSK = AsrtoUtils.Conversion.DateTimeUtils.ConvertToLocal(DateObsUTC);
                 return MSK;
             }
         }   
