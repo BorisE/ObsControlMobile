@@ -28,32 +28,54 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <!-- OBSERVATORY 1 -->
+            <Label Grid.Row="0"  Grid.Column="0" Text="Observatory 2:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+
             <!-- 1st row -->
-            <Label Grid.Row="0"  Grid.Column="0" Text="Roof status:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
-            <Label Grid.Row="0"  Grid.Column="1" Text="{Binding Obs2_Roof}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Roof_Color}"/>
-            <Label Grid.Row="0"  Grid.Column="2" Text="{Binding Obs2_Roof_Updated }" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Roof_Updated_Color}"/>
+            <Label Grid.Row="1"  Grid.Column="0" Text="Roof status:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="1"  Grid.Column="1" Text="{Binding Obs2_Roof}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Roof_Color}"/>
+            <Label Grid.Row="1"  Grid.Column="2" Text="{Binding Obs2_Roof_Updated }" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Roof_Updated_Color}"/>
 
-            <!-- 2nd row -->
-            <Label Grid.Row="1"  Grid.Column="0" Text="IR:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
-            <Label Grid.Row="1"  Grid.Column="1" Text="{Binding ObsStatus2.ir.value}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Azure"/>
-            <Label Grid.Row="1"  Grid.Column="2" Text="{Binding ObsStatus2.ir.date }" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Aqua"/>
+            <!--<Label Grid.Row="2"  Grid.Column="0" Text="Inside:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="2"  Grid.Column="1" Text="{Binding Obs2_Inside}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Inside_Updated_Color}"/>
+            <Label Grid.Row="2"  Grid.Column="2" Text="{Binding Obs2_Inside_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Inside_Updated_Color}"/>
 
+            <Label Grid.Row="3"  Grid.Column="0" Text="Humidity:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="3"  Grid.Column="1" Text="{Binding Obs2_Humidity}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Humidity_Updated_Color}"/>
+            <Label Grid.Row="3"  Grid.Column="2" Text="{Binding Obs2_Humidity_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Humidity_Updated_Color}"/>
 
+            <Label Grid.Row="4"  Grid.Column="0" Text="IR:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="4"  Grid.Column="1" Text="{Binding Obs2_IR}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_IR_Updated_Color}"/>
+            <Label Grid.Row="4"  Grid.Column="2" Text="{Binding Obs2_IR_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_IR_Updated_Color}"/>
 
-            <Label Grid.Row="1" Text="{Binding CurrentDate}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+             --><!-- OBSERVATORY 1 --><!--
+            <Label Grid.Row="5"  Grid.Column="0" Text="Observatory 1:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
 
-            <!-- 3rd row --><!--
-            <StackLayout Grid.Row="2" Spacing="0" HorizontalOptions="CenterAndExpand">
-                <Label Text="{Binding CurrentDate}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-            </StackLayout>
+            <Label Grid.Row="6"  Grid.Column="0" Text="Inside:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="6"  Grid.Column="1" Text="{Binding Obs1_Inside}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Inside_Updated_Color}"/>
+            <Label Grid.Row="6"  Grid.Column="2" Text="{Binding Obs1_Inside_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Inside_Updated_Color}"/>
 
-            --><!-- 4th row. --><!--
-            <Label Grid.Row="1" Text="{Binding CurrentDate}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+            <Label Grid.Row="7"  Grid.Column="0" Text="Humidity:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="7"  Grid.Column="1" Text="{Binding Obs1_Humidity}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Humidity_Updated_Color}"/>
+            <Label Grid.Row="7"  Grid.Column="2" Text="{Binding Obs1_Humidity_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Humidity_Updated_Color}"/>
 
-            <ActivityIndicator x:Name="ProgressLoader" IsRunning="{Binding IsBusy}"/>-->
+            <Label Grid.Row="8"  Grid.Column="0" Text="IR:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="8"  Grid.Column="1" Text="{Binding Obs1_IR}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_IR_Updated_Color}"/>
+            <Label Grid.Row="8"  Grid.Column="2" Text="{Binding Obs1_IR_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_IR_Updated_Color}"/>
+
+            <Label Grid.Row="9"  Grid.Column="0" Text="AKB:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="9"  Grid.Column="1" Text="{Binding Obs1_Akb}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Akb_Updated_Color}"/>
+            <Label Grid.Row="9"  Grid.Column="2" Text="{Binding Obs1_Akb_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Akb_Updated_Color}"/>-->
+
         </Grid>
 
     </ContentPage.Content>
