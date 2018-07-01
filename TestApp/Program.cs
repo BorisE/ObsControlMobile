@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using AsrtoUtils;
 using Newtonsoft.Json;
 
 
@@ -94,9 +95,30 @@ namespace TestApp
 
         }
 
+        static void TimeConversionExample()
+        {
+            string SunsetTimeSt = AstroUtilsProp.SunSetDateTime().ToString("HH:mm");
+            Console.WriteLine("SunsetTimeSt:" + SunsetTimeSt);
+            string CivTwilightEndTimeSt = AstroUtilsProp.CivilTwilightSetDateTime().ToString("HH:mm");
+            Console.WriteLine("CivTwilightEndTimeSt: "+ CivTwilightEndTimeSt);
+            string NavTwilightEndTimeSt = AstroUtilsProp.NautTwilightSetDateTime().ToString("HH:mm");
+            Console.WriteLine("NavTwilightEndTimeSt: " + NavTwilightEndTimeSt);
+            string AstroTwilightEndTimeSt = AstroUtilsProp.AstronTwilightSetDateTime().ToString("HH:mm");
+            Console.WriteLine("AstroTwilightEndTimeSt: " + AstroTwilightEndTimeSt);
+
+            string AstroTwilightBegTimeSt = AstroUtilsProp.AstronTwilightRiseDateTime().ToString("HH:mm");
+            Console.WriteLine("AstroTwilightBegTimeSt: " + AstroTwilightBegTimeSt);
+
+            //NavTwilightBegTimeSt = AstroUtilsProp.NautTwilightRiseDateTime().ToString("HH:mm");
+            //CivTwilightBegTimeSt = AstroUtilsProp.CivilTwilightRiseDateTime().ToString("HH:mm");
+            //SunriseTimeSt = AstroUtilsProp.SunRiseDateTime().ToString("HH:mm");
+
+        }
+
         static void Main(string[] args)
         {
-            ParseArrayExample();
+            TimeConversionExample();
+            //ParseArrayExample();
             Console.ReadLine();
         }
     }

@@ -30,22 +30,22 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- OBSERVATORY 1 -->
-            <Label Grid.Row="0"  Grid.Column="0" Text="Observatory 2:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <!-- OBSERVATORY 2 -->
+            <Label Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" Text="Observatory 2:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand" FontSize="Medium" FontAttributes="Bold"/>
 
             <!-- 1st row -->
             <Label Grid.Row="1"  Grid.Column="0" Text="Roof status:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
             <Label Grid.Row="1"  Grid.Column="1" Text="{Binding Obs2_Roof}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Roof_Color}"/>
             <Label Grid.Row="1"  Grid.Column="2" Text="{Binding Obs2_Roof_Updated }" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Roof_Updated_Color}"/>
 
-            <!--<Label Grid.Row="2"  Grid.Column="0" Text="Inside:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <Label Grid.Row="2"  Grid.Column="0" Text="Inside:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
             <Label Grid.Row="2"  Grid.Column="1" Text="{Binding Obs2_Inside}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Inside_Updated_Color}"/>
             <Label Grid.Row="2"  Grid.Column="2" Text="{Binding Obs2_Inside_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_Inside_Updated_Color}"/>
 
@@ -57,8 +57,8 @@
             <Label Grid.Row="4"  Grid.Column="1" Text="{Binding Obs2_IR}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_IR_Updated_Color}"/>
             <Label Grid.Row="4"  Grid.Column="2" Text="{Binding Obs2_IR_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs2_IR_Updated_Color}"/>
 
-             --><!-- OBSERVATORY 1 --><!--
-            <Label Grid.Row="5"  Grid.Column="0" Text="Observatory 1:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
+            <!--OBSERVATORY 1-->
+            <Label Grid.Row="5"  Grid.Column="0" Grid.ColumnSpan="3" Text="Observatory 1:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand" FontSize="Medium" FontAttributes="Bold"/>
 
             <Label Grid.Row="6"  Grid.Column="0" Text="Inside:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
             <Label Grid.Row="6"  Grid.Column="1" Text="{Binding Obs1_Inside}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Inside_Updated_Color}"/>
@@ -74,7 +74,7 @@
 
             <Label Grid.Row="9"  Grid.Column="0" Text="AKB:" HorizontalTextAlignment ="Center" HorizontalOptions="StartAndExpand"/>
             <Label Grid.Row="9"  Grid.Column="1" Text="{Binding Obs1_Akb}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Akb_Updated_Color}"/>
-            <Label Grid.Row="9"  Grid.Column="2" Text="{Binding Obs1_Akb_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Akb_Updated_Color}"/>-->
+            <Label Grid.Row="9"  Grid.Column="2" Text="{Binding Obs1_Akb_Updated}" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand" BackgroundColor="{Binding Obs1_Akb_Updated_Color}"/>
 
         </Grid>
 

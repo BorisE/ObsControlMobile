@@ -59,5 +59,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AstroUtils\AstroUtils\BE.AstroUtils.csproj">
+      <Project>{6bd11111-178e-4624-b209-f04b69c06571}</Project>
+      <Name>BE.AstroUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

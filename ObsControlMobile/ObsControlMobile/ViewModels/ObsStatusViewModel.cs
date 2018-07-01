@@ -174,6 +174,16 @@ namespace ObsControlMobile.ViewModels
             get => RecentColor(ObsStatus2.inside.ValueIsRecent);
         }
         #endregion OBSERVATORY 2 STATUS
+        
+        #region Misc fileds
+        string _currentdate;
+        public string CurrentDate
+        {
+            get { return _currentdate; }
+            set { SetProperty(ref _currentdate, value); }
+        }
+        #endregion Misc fileds
+
 
         public void RefreshBindingFields()
         {
@@ -217,16 +227,6 @@ namespace ObsControlMobile.ViewModels
             return (IsRecent ? "azure" : "crimson");
         }
 
-        #region Misc fileds
-        string _currentdate;
-        public string CurrentDate
-        {
-            get { return _currentdate; }
-            set { SetProperty(ref _currentdate, value); }
-        }
-        #endregion Misc fileds
-
-
         public void RefreshObsStatus()
         {
             //Set CurrentDate propertie
@@ -262,21 +262,6 @@ namespace ObsControlMobile.ViewModels
 
                     //REFRESH PROTPERTIES
                     RefreshBindingFields();
-
-
-
-
-
-
-                    //Obs2_Roof = ObsStatus2.roof.value.ToString();
-                    //Debug.WriteLine("RoofValue is recent: " + ObsStatus2.roof.ValueIsRecent.ToString());
-
-                    //Obs2_Roof_Updated = ObsStatus2.roof.date.ToString();
-
-
-
-                    //Roof = ObsStatus2.roof;
-
                 }
                 catch (Exception ex)
                 {

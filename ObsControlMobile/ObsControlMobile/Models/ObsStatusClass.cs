@@ -23,7 +23,7 @@ namespace ObsControlMobile.Models
      */
     public class DateValuePair
     {
-        public static int VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 5*60; //5 min
+        public int VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 5*60; //5 min
 
         public DateTime date = DateTime.MinValue;
         public double value = -100.0;
@@ -51,6 +51,11 @@ namespace ObsControlMobile.Models
             inside = new DateValuePair();
             akb = new DateValuePair();
             roof = new DateValuePair();
+
+            //Set individual VALID_DATETIME_MAX_SECONDS_SINCE_NOW
+            akb.VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 10 * 60;
+            roof.VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 2 * 60;
+
         }
     }
 
