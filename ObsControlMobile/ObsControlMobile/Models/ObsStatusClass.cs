@@ -55,8 +55,40 @@ namespace ObsControlMobile.Models
             //Set individual VALID_DATETIME_MAX_SECONDS_SINCE_NOW
             akb.VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 10 * 60;
             roof.VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 2 * 60;
-
         }
     }
+
+    public class ObsStatus_LV_Class
+    {
+        public DateValuePair ir;
+        public DateValuePair humidity1;
+        public DateValuePair inside1;
+        public DateValuePair humidity2;
+        public DateValuePair inside2;
+        public DateValuePair akb;
+        public DateValuePair roof;
+
+        public ObsStatus_LV_Class()
+        {
+            ir = new DateValuePair();
+            humidity1 = new DateValuePair();
+            inside1 = new DateValuePair();
+            humidity2 = new DateValuePair();
+            inside2 = new DateValuePair();
+            akb = new DateValuePair();
+            roof = new DateValuePair();
+
+            //Set individual VALID_DATETIME_MAX_SECONDS_SINCE_NOW
+            akb.VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 10 * 60;
+            roof.VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 2 * 60;
+        }
+    }
+
+    public class ObsStatus_LV_Element_Class: DateValuePair
+    {
+        public string Id { get; set; }
+        public string NameEl = "";
+    }
+
 
 }

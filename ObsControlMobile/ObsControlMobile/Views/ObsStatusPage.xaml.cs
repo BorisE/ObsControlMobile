@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using ObsControlMobile.Models;
 using ObsControlMobile.Views;
 using ObsControlMobile.ViewModels;
+using System.Diagnostics;
 
 namespace ObsControlMobile.Views
 {
@@ -24,9 +25,34 @@ namespace ObsControlMobile.Views
             BindingContext = viewModel = new ObsStatusViewModel(this);
         }
 
+        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        {
+            // Manually deselect item.
+            //ObsStatusListView.SelectedItem = null;
+
+            ObsStatus_LV_Element_Class selectedPhone = args.SelectedItem as ObsStatus_LV_Element_Class;
+            if (selectedPhone != null)
+                await DisplayAlert("Выбранная модель", $"{selectedPhone.NameEl} - {selectedPhone.value}", "OK");
+
+            //await DisplayAlert("Alert", "You have been alerted", "OK");
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            try
+            {
+                //if empty, reload
+                if (viewModel.ObsStatus_LVsource.Count == 0)
+                    viewModel.LoadObsStatusCommand.Execute(null);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("OnAppearing Exception");
+                Debug.WriteLine(ex);
+            }
         }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -17,7 +18,7 @@ using Xamarin.Forms;
 
 namespace ObsControlMobile.ViewModels
 {
-        public class ObsStatusViewModel : BaseViewModel
+    public class ObsStatusViewModel : BaseViewModel
     {
         Page ParentPage;
 
@@ -25,6 +26,11 @@ namespace ObsControlMobile.ViewModels
 
         public ObsStatusElement_Class ObsStatus1 = new ObsStatusElement_Class();
         public ObsStatusElement_Class ObsStatus2 = new ObsStatusElement_Class();
+
+        public ObservableCollection<ObsStatus_LV_Element_Class> ObsStatus_LVsource { get; set; }
+
+        public Command LoadObsStatusCommand { get; set; }
+
 
         /// <summary>
         /// Constructor
@@ -36,11 +42,30 @@ namespace ObsControlMobile.ViewModels
 
             Title = "Status";
 
-            AllSkyTapCommand = new Command(() => RefreshObsStatus());
-            RefreshAllSkyCommand = new Command(() => RefreshObsStatus());
+            //AllSkyTapCommand = new Command(() => RefreshObsStatus());
+            //RefreshAllSkyCommand = new Command(() => RefreshObsStatus());
+
+            //ObsStatus_LVsource = new ObservableCollection<ObsStatus_LV_Element_Class>();
+
+            ObsStatus_LVsource = new ObservableCollection<ObsStatus_LV_Element_Class>
+            {
+                new ObsStatus_LV_Element_Class {
+                    NameEl = "Roof",
+                    value = 1,
+                    date = new DateTime(2018, 07, 01, 03, 01, 01)
+                },
+                new ObsStatus_LV_Element_Class {
+                    NameEl = "Inside1",
+                    value = 30.0,
+                    date = new DateTime(2018, 07, 01, 03, 01, 11)
+                },
+            };
+
+            LoadObsStatusCommand = new Command(async () => await RefreshObsStatus_LV());
+
 
             //ObsStatus Data
-            RefreshObsStatus();
+            //RefreshObsStatus();
         }
 
 
@@ -227,11 +252,64 @@ namespace ObsControlMobile.ViewModels
             return (IsRecent ? "azure" : "crimson");
         }
 
+
+        async Task RefreshObsStatus_LV()
+        {
+            Debug.WriteLine("RefreshObsStatus_LV enter");
+
+            if (IsBusy)
+            {
+                Debug.WriteLine("RefreshObsStatus_LV already busy, return");
+                return;
+            }
+            IsBusy = true;
+
+
+            //Set CurrentDate propertie
+            CurrentDate = DateTime.Now.ToString("HH:mm:ss");
+
+            try
+            { 
+                //Download status data
+                ObsStatus_LV_Element_Class El1 = new ObsStatus_LV_Element_Class
+                {
+                    NameEl = "Roof",
+                    value = 1,
+                    date = new DateTime(2018, 07, 01, 03, 01, 01)
+                };
+                ObsStatus_LV_Element_Class El2 = new ObsStatus_LV_Element_Class
+                {
+                    NameEl = "Inside1",
+                    value = 30.0,
+                    date = new DateTime(2018, 07, 01, 03, 01, 11)
+                };
+                ObsStatus_LVsource.Clear();
+                ObsStatus_LVsource.Add(El1);
+                ObsStatus_LVsource.Add(El2);
+
+                string stout = JsonConvert.SerializeObject(ObsStatus_LVsource);
+                Debug.Write("Dump ObsStatus_LVsource: ");
+                Debug.WriteLine(stout);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("ExecuteLoadItemsCommand Exception");
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+                //this.IsDownloading = false;
+            }
+
+        }
+
+
         public void RefreshObsStatus()
         {
             //Set CurrentDate propertie
             CurrentDate = DateTime.Now.ToString("HH:mm:ss");
-            
+
             //Download status data
             GetObsStatusJSONData();
         }
@@ -260,8 +338,13 @@ namespace ObsControlMobile.ViewModels
                     ObsStatus1 = obsstatret.Item1["1"];
                     ObsStatus2 = obsstatret.Item1["2"];
 
+ 
+                    //string stout = JsonConvert.SerializeObject(ObsStatus_LVsource);
+                    //Debug.Write("Dump: ");
+                    //Debug.WriteLine(stout);
+
                     //REFRESH PROTPERTIES
-                    RefreshBindingFields();
+                    //RefreshBindingFields();
                 }
                 catch (Exception ex)
                 {
@@ -275,9 +358,5 @@ namespace ObsControlMobile.ViewModels
             }
             IsBusy = false;
         }
-
-
-        public ICommand RefreshAllSkyCommand { get; }
-        public ICommand AllSkyTapCommand { get; }
     }
 }

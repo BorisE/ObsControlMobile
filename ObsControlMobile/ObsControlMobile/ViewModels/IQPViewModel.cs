@@ -47,6 +47,7 @@ namespace ObsControlMobile.ViewModels
             ParentPage = ExtPP;
 
             Title = "IQP";
+
             IQPItems = new ObservableCollection<IQPItem>();
             LoadIQPItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
