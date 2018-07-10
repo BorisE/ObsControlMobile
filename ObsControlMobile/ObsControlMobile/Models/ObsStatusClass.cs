@@ -84,11 +84,28 @@ namespace ObsControlMobile.Models
         }
     }
 
-    public class ObsStatus_LV_Element_Class: DateValuePair
+    public class ObsStatus_LV_Element_Class2: DateValuePair
     {
         public string Id { get; set; }
         public string NameEl = "";
+
+        public ObsStatus_LV_Element_Class2(): base()
+        {
+        }
     }
 
+    public class ObsStatus_LV_Element_Class
+    {
+        public string Id { get; set; }
+        public string NameEl { get; set; }
+        public double valueEl { get; set; }
+        public DateTime dateEl { get; set; }
 
+        public ObsStatus_LV_Element_Class()
+        {
+            NameEl = "";
+            valueEl = -100.0;
+            dateEl = DateTime.Now;
+        }
+    }
 }

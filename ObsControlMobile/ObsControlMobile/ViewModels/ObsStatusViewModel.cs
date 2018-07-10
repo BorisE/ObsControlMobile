@@ -51,18 +51,23 @@ namespace ObsControlMobile.ViewModels
             {
                 new ObsStatus_LV_Element_Class {
                     NameEl = "Roof",
-                    value = 1,
-                    date = new DateTime(2018, 07, 01, 03, 01, 01)
+                    valueEl = 1,
+                    dateEl = new DateTime(2018, 07, 01, 03, 01, 01)
                 },
                 new ObsStatus_LV_Element_Class {
                     NameEl = "Inside1",
-                    value = 30.0,
-                    date = new DateTime(2018, 07, 01, 03, 01, 11)
+                    valueEl = 30.0,
+                    dateEl = new DateTime(2018, 07, 01, 03, 01, 11)
                 },
             };
 
             LoadObsStatusCommand = new Command(async () => await RefreshObsStatus_LV());
 
+            MessagingCenter.Subscribe<Page, ObsStatus_LV_Element_Class>(this, "AddItem", async (obj, item) =>
+            {
+                var _item = item as ObsStatus_LV_Element_Class;
+                ObsStatus_LVsource.Add(_item);
+            });
 
             //ObsStatus Data
             //RefreshObsStatus();
@@ -274,14 +279,14 @@ namespace ObsControlMobile.ViewModels
                 ObsStatus_LV_Element_Class El1 = new ObsStatus_LV_Element_Class
                 {
                     NameEl = "Roof",
-                    value = 1,
-                    date = new DateTime(2018, 07, 01, 03, 01, 01)
+                    valueEl = 1,
+                    dateEl = new DateTime(2018, 07, 01, 03, 01, 01)
                 };
                 ObsStatus_LV_Element_Class El2 = new ObsStatus_LV_Element_Class
                 {
                     NameEl = "Inside1",
-                    value = 30.0,
-                    date = new DateTime(2018, 07, 01, 03, 01, 11)
+                    valueEl = 30.0,
+                    dateEl = new DateTime(2018, 07, 01, 03, 01, 11)
                 };
                 ObsStatus_LVsource.Clear();
                 ObsStatus_LVsource.Add(El1);

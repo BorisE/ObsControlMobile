@@ -21,8 +21,12 @@ namespace ObsControlMobile.Views
 
         public ObsStatusPage()
         {
-            InitializeComponent();
             BindingContext = viewModel = new ObsStatusViewModel(this);
+
+            if (viewModel.ObsStatus_LVsource.Count == 0)
+                viewModel.LoadObsStatusCommand.Execute(null);
+
+            InitializeComponent();
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -32,7 +36,7 @@ namespace ObsControlMobile.Views
 
             ObsStatus_LV_Element_Class selectedPhone = args.SelectedItem as ObsStatus_LV_Element_Class;
             if (selectedPhone != null)
-                await DisplayAlert("Выбранная модель", $"{selectedPhone.NameEl} - {selectedPhone.value}", "OK");
+                await DisplayAlert("Выбранная модель", $"{selectedPhone.NameEl} - {selectedPhone.valueEl}", "OK");
 
             //await DisplayAlert("Alert", "You have been alerted", "OK");
         }
