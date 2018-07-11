@@ -22,9 +22,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\IQPPage2.xaml.cs">
-      <DependentUpon>IQPPage2.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\IQPPage.xaml.cs">
       <DependentUpon>IQPPage.xaml</DependentUpon>
     </Compile>

@@ -36,7 +36,7 @@ namespace ObsControlMobile.Views
 
             ObsStatus_LV_Element_Class selectedPhone = args.SelectedItem as ObsStatus_LV_Element_Class;
             if (selectedPhone != null)
-                await DisplayAlert("Выбранная модель", $"{selectedPhone.NameEl} - {selectedPhone.valueEl}", "OK");
+                await DisplayAlert("Выбранная модель", $"{selectedPhone.Name} - {selectedPhone.Value}", "OK");
 
             //await DisplayAlert("Alert", "You have been alerted", "OK");
         }

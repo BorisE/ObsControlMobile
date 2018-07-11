@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace ObsControlMobile.Models
@@ -25,18 +26,21 @@ namespace ObsControlMobile.Models
     {
         public int VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 5*60; //5 min
 
-        public DateTime date = DateTime.MinValue;
-        public double value = -100.0;
+        public DateTime Date { get; set; }  = DateTime.MinValue;
+        public double Value { get; set; } = -100.0;
 
         public bool ValueIsRecent
         {
             get {
-                return ((DateTime.Now - date).TotalSeconds < VALID_DATETIME_MAX_SECONDS_SINCE_NOW);
+                return ((DateTime.Now - Date).TotalSeconds < VALID_DATETIME_MAX_SECONDS_SINCE_NOW);
             }
         }
     }
 
-    public class ObsStatusElement_Class
+    /// <summary>
+    /// Basic object to convert from JSON Data for every observatory
+    /// </summary>
+    public class ObsStatus_JSON_ByObservatoryClass
     {
         public DateValuePair ir;
         public DateValuePair humidity;
@@ -44,7 +48,7 @@ namespace ObsControlMobile.Models
         public DateValuePair akb;
         public DateValuePair roof;
 
-        public ObsStatusElement_Class()
+        public ObsStatus_JSON_ByObservatoryClass()
         {
             ir = new DateValuePair();
             humidity = new DateValuePair();
@@ -58,50 +62,41 @@ namespace ObsControlMobile.Models
         }
     }
 
-    public class ObsStatus_LV_Class
-    {
-        public DateValuePair ir;
-        public DateValuePair humidity1;
-        public DateValuePair inside1;
-        public DateValuePair humidity2;
-        public DateValuePair inside2;
-        public DateValuePair akb;
-        public DateValuePair roof;
-
-        public ObsStatus_LV_Class()
-        {
-            ir = new DateValuePair();
-            humidity1 = new DateValuePair();
-            inside1 = new DateValuePair();
-            humidity2 = new DateValuePair();
-            inside2 = new DateValuePair();
-            akb = new DateValuePair();
-            roof = new DateValuePair();
-
-            //Set individual VALID_DATETIME_MAX_SECONDS_SINCE_NOW
-            akb.VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 10 * 60;
-            roof.VALID_DATETIME_MAX_SECONDS_SINCE_NOW = 2 * 60;
-        }
-    }
-
-    public class ObsStatus_LV_Element_Class2: DateValuePair
+    /// <summary>
+    /// Class for every element of ObsStatus List View
+    /// </summary>
+    public class ObsStatus_LV_Element_Class: DateValuePair
     {
         public string Id { get; set; }
-        public string NameEl = "";
+        public string Name { get; set; } = "";
 
-        public ObsStatus_LV_Element_Class2(): base()
+        public ObsStatus_LV_Element_Class(): base()
         {
         }
     }
 
-    public class ObsStatus_LV_Element_Class
+    /// <summary>
+    /// Class for Group of ObsStatus elements for each observatory
+    /// Used for itemsource in ListView
+    /// </summary>
+    public class ObsStatus_LV_Group: ObservableCollection<ObsStatus_LV_Element_Class>
+    {
+        public string Id { get; set; }
+        public string GroupTitle { get; set; } = "";
+        
+    }
+
+
+
+
+    public class ObsStatus_LV_Element_Class__________3
     {
         public string Id { get; set; }
         public string NameEl { get; set; }
         public double valueEl { get; set; }
         public DateTime dateEl { get; set; }
 
-        public ObsStatus_LV_Element_Class()
+        public ObsStatus_LV_Element_Class__________3()
         {
             NameEl = "";
             valueEl = -100.0;
