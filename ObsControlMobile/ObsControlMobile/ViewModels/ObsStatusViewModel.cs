@@ -27,7 +27,7 @@ namespace ObsControlMobile.ViewModels
         public ObsStatus_JSON_ByObservatoryClass ObsStatus1 = new ObsStatus_JSON_ByObservatoryClass();
         public ObsStatus_JSON_ByObservatoryClass ObsStatus2 = new ObsStatus_JSON_ByObservatoryClass();
 
-        public ObservableCollection<ObsStatus_LV_Element_Class> ObsStatus_LVsource { get; set; }
+        //public ObservableCollection<ObsStatus_LV_Element_Class> ObsStatus_LVsource { get; set; }
 
         public ObservableCollection<ObsStatus_LV_Group> ObsStatus_LV_Grouped_source { get; set; }
 
@@ -48,7 +48,7 @@ namespace ObsControlMobile.ViewModels
             //AllSkyTapCommand = new Command(() => RefreshObsStatus());
             //RefreshAllSkyCommand = new Command(() => RefreshObsStatus());
 
-            ObsStatus_LVsource = new ObservableCollection<ObsStatus_LV_Element_Class>();
+            //ObsStatus_LVsource = new ObservableCollection<ObsStatus_LV_Element_Class>();
 
             ObsStatus_LV_Grouped_source = new ObservableCollection<ObsStatus_LV_Group>();
 
@@ -279,39 +279,64 @@ namespace ObsControlMobile.ViewModels
             CurrentDate = DateTime.Now.ToString("HH:mm:ss");
 
             try
-            { 
+            {
                 //Download status data
+
+                var Group_Obs1 = new ObsStatus_LV_Group()
+                {
+                    GroupTitle = "Observatory 1",
+                };
                 ObsStatus_LV_Element_Class El1 = new ObsStatus_LV_Element_Class
+                {
+                    Name = "Inside",
+                    Value = 30.0,
+                    Date = new DateTime(2018, 07, 01, 03, 01, 11)
+                };
+                Group_Obs1.Add(El1);
+
+                El1 = new ObsStatus_LV_Element_Class
+                {
+                    Name = "IR",
+                    Value = 2.0,
+                    Date = new DateTime(2018, 07, 01, 03, 01, 13)
+                };
+                Group_Obs1.Add(El1);
+
+                El1 = new ObsStatus_LV_Element_Class
+                {
+                    Name = "Humidity",
+                    Value = 30.1,
+                    Date = new DateTime(2018, 07, 01, 03, 01, 14)
+                };
+                Group_Obs1.Add(El1);
+
+
+                //Group for Observatory 2
+                var Group_Obs2 = new ObsStatus_LV_Group()
+                {
+                    GroupTitle = "Observatory 2"
+                };
+                El1 = new ObsStatus_LV_Element_Class
+                {
+                    Name = "Inside",
+                    Value = 24.6,
+                    Date = new DateTime(2018, 06, 01, 03, 01, 11)
+                };
+                Group_Obs2.Add(El1);
+
+                El1 = new ObsStatus_LV_Element_Class
+                {
+                    Name = "Humidity",
+                    Value = 22.3,
+                    Date = new DateTime(2018, 06, 01, 03, 01, 14)
+                };
+                Group_Obs2.Add(El1);
+
+                ObsStatus_LV_Element_Class El2 = new ObsStatus_LV_Element_Class
                 {
                     Name = "Roof",
                     Value = 1,
                     Date = new DateTime(2018, 07, 01, 03, 01, 01)
-                };
-                ObsStatus_LV_Element_Class El2 = new ObsStatus_LV_Element_Class
-                {
-                    Name = "Inside1",
-                    Value = 30.0,
-                    Date = new DateTime(2018, 07, 01, 03, 01, 11)
-                };
-                ObsStatus_LVsource.Clear();
-                ObsStatus_LVsource.Add(El1);
-                ObsStatus_LVsource.Add(El2);
-
-                string stout = JsonConvert.SerializeObject(ObsStatus_LVsource);
-                Debug.Write("Dump ObsStatus_LVsource: ");
-                Debug.WriteLine(stout);
-
-
-                var Group_Obs1 = new ObsStatus_LV_Group()
-                {
-                    GroupTitle = "Obs1"
-                };
-                Group_Obs1.Add(El1);
-                Group_Obs1.Add(El2);
-
-                var Group_Obs2 = new ObsStatus_LV_Group()
-                {
-                    GroupTitle = "Obs2"
                 };
                 Group_Obs2.Add(El2);
 
@@ -357,11 +382,10 @@ namespace ObsControlMobile.ViewModels
                     //Download data
                     Tuple<Dictionary<string, ObsStatus_JSON_ByObservatoryClass>, DownloadResult> obsstatret;
                     obsstatret = await NetworkServices.GetJSON<Dictionary<string, ObsStatus_JSON_ByObservatoryClass>>(Settings.ObsStatusURL);
-
-                    //Debug
-                    string stout=JsonConvert.SerializeObject(obsstatret);
-                    Debug.Write("Dump obsstatret: ");
-                    Debug.WriteLine(stout);
+                            //Debug
+                            string stout=JsonConvert.SerializeObject(obsstatret);
+                            Debug.Write("Dump obsstatret: ");
+                            Debug.WriteLine(stout);
 
                     //Split for 2 obs
                     ObsStatus1 = obsstatret.Item1["1"];
@@ -372,18 +396,19 @@ namespace ObsControlMobile.ViewModels
                     {
                         GroupTitle = "Observatory 1",
                     };
+
                     var El1 = new ObsStatus_LV_Element_Class
-                    {
-                        Name = "Inside",
-                        Value = ObsStatus1.inside.Value,
-                        Date = ObsStatus1.inside.Date
-                    };
-                    Group_Obs1.Add(El1);
-                    El1 = new ObsStatus_LV_Element_Class
                     {
                         Name = "IR",
                         Value = ObsStatus1.ir.Value,
                         Date = ObsStatus1.ir.Date
+                    };
+                    Group_Obs1.Add(El1);
+                    El1 = new ObsStatus_LV_Element_Class
+                    {
+                        Name = "Inside",
+                        Value = ObsStatus1.inside.Value,
+                        Date = ObsStatus1.inside.Date
                     };
                     Group_Obs1.Add(El1);
                     El1 = new ObsStatus_LV_Element_Class
@@ -394,25 +419,16 @@ namespace ObsControlMobile.ViewModels
                     };
                     Group_Obs1.Add(El1);
 
+                            stout = JsonConvert.SerializeObject(Group_Obs1);
+                            Debug.Write("Dump Group_Obs1: ");
+                            Debug.WriteLine(stout);
+
                     //Group for Observatory 2
                     var Group_Obs2 = new ObsStatus_LV_Group()
                     {
                         GroupTitle = "Observatory 2"
                     };
-                    var El2 = new ObsStatus_LV_Element_Class
-                    {
-                        Name = "Inside",
-                        Value = ObsStatus2.inside.Value,
-                        Date = ObsStatus2.inside.Date
-                    };
-                    Group_Obs2.Add(El1);
-                    El1 = new ObsStatus_LV_Element_Class
-                    {
-                        Name = "Humidity",
-                        Value = ObsStatus2.humidity.Value,
-                        Date = ObsStatus2.humidity.Date
-                    };
-                    Group_Obs2.Add(El1);
+
                     El1 = new ObsStatus_LV_Element_Class
                     {
                         Name = "Roof",
@@ -421,9 +437,42 @@ namespace ObsControlMobile.ViewModels
                     };
                     Group_Obs2.Add(El1);
 
+                    El1 = new ObsStatus_LV_Element_Class
+                    {
+                        Name = "Inside",
+                        Value = ObsStatus2.inside.Value,
+                        Date = ObsStatus2.inside.Date
+                    };
+                    Group_Obs2.Add(El1);
+                    
+                    El1 = new ObsStatus_LV_Element_Class
+                    {
+                        Name = "Humidity",
+                        Value = ObsStatus2.humidity.Value,
+                        Date = ObsStatus2.humidity.Date
+                    };
+                    Group_Obs2.Add(El1);
+
+
+                            stout = JsonConvert.SerializeObject(Group_Obs2);
+                            Debug.Write("Dump Group_Obs2: ");
+                            Debug.WriteLine(stout);
+
                     ObsStatus_LV_Grouped_source.Clear();
+                            stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
+                            Debug.Write("Dump1 ObsStatus_LV_Grouped_source: ");
+                            Debug.WriteLine(stout);
+
                     ObsStatus_LV_Grouped_source.Add(Group_Obs1);
+                            stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
+                            Debug.Write("Dump2 ObsStatus_LV_Grouped_source: ");
+                            Debug.WriteLine(stout);
+
                     ObsStatus_LV_Grouped_source.Add(Group_Obs2);
+                            stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
+                            Debug.Write("Dump3 ObsStatus_LV_Grouped_source: ");
+                            Debug.WriteLine(stout);
+
 
 
                     //string stout = JsonConvert.SerializeObject(ObsStatus_LVsource);

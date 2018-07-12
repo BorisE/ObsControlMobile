@@ -23,7 +23,7 @@ namespace ObsControlMobile.Views
         {
             BindingContext = viewModel = new ObsStatusViewModel(this);
 
-            if (viewModel.ObsStatus_LVsource.Count == 0)
+            if (viewModel.ObsStatus_LV_Grouped_source.Count == 0)
                 viewModel.LoadObsStatusCommand.Execute(null);
 
             InitializeComponent();
@@ -48,7 +48,7 @@ namespace ObsControlMobile.Views
             try
             {
                 //if empty, reload
-                if (viewModel.ObsStatus_LVsource.Count == 0)
+                if (viewModel.ObsStatus_LV_Grouped_source.Count == 0)
                     viewModel.LoadObsStatusCommand.Execute(null);
             }
             catch (Exception ex)

@@ -9,6 +9,12 @@ to do:
 - switch power on/off
 - push notification on roof status
 
+1.3.1 [12.07.2018]
+- ObsStatus page in ListView
+
+1.3.0 [01.07.2018]
+- ObsStatus page
+
 1.2.1 [24.06.2018]
 - configuration page was moved to about page
 - automatic version number
