@@ -14,6 +14,7 @@ using AsrtoUtils.Conversion;
 using Newtonsoft.Json;
 using ObsControlMobile.Models;
 using ObsControlMobile.Services;
+using ObsControlMobile.Views;
 using Xamarin.Forms;
 
 namespace ObsControlMobile.ViewModels
@@ -21,6 +22,7 @@ namespace ObsControlMobile.ViewModels
     public class PowerViewModel : BaseViewModel
     {
         Page ParentPage;
+
 
         public DownloadResult GetDataResult = DownloadResult.Undefined;
 
@@ -42,6 +44,7 @@ namespace ObsControlMobile.ViewModels
 
         public Command LoadPowerStatusCommand { get; set; }
 
+        public Command SendPowerStatusCommand { get; set; }
 
         /// <summary>
         /// Constructor
@@ -57,7 +60,7 @@ namespace ObsControlMobile.ViewModels
             LoadPowerStatusCommand = new Command(async () => await GetPowerStatus_emulate());
         }
 
-       
+
         #region Misc fileds
         string _currentdate;
         public string CurrentDate
@@ -96,8 +99,12 @@ namespace ObsControlMobile.ViewModels
                     ["boris2_ccd"] = 0,
                 };
 
+                SwitchCell PowerCell1 = new SwitchCell
+                {
+                    Text = "Boris2 pc"
+                };
 
-
+                 ((PowerPage)ParentPage).PowerSwitchSection.Children.Add(PowerCell1);
 
 
             }
