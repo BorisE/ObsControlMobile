@@ -115,10 +115,25 @@ namespace TestApp
 
         }
 
+
+        static void BaseAuthExample()
+        {
+            var client = new WebClient { Credentials = new NetworkCredential("borise", "astro11") };
+            string response = client.DownloadString("http://astrohostel.ru/rest/power");
+
+            Dictionary<string, int> values = JsonConvert.DeserializeObject<Dictionary<string, int>>(response);
+
+            foreach (KeyValuePair<string, int> pair in values)
+            { Console.WriteLine(pair.Key + "=" + pair.Value);  }
+
+                Console.WriteLine(values);
+        }
+
         static void Main(string[] args)
         {
-            TimeConversionExample();
+            //TimeConversionExample();
             //ParseArrayExample();
+            BaseAuthExample();
             Console.ReadLine();
         }
     }
