@@ -124,9 +124,19 @@ namespace TestApp
             JSONPowerStatusListClass values = JsonConvert.DeserializeObject<JSONPowerStatusListClass>(response);
 
             foreach (KeyValuePair<string, int> pair in values)
-            { Console.WriteLine(pair.Key + "=" + pair.Value);  }
+            {
+                Console.WriteLine(pair.Key + "=" + pair.Value);
+            }
+            Console.WriteLine(values);
 
-                Console.WriteLine(values);
+
+            //1. Compose URL
+            string datast = "";
+            //2. Run PUT Query
+            string responseSt = client.UploadString("http://astrohostel.ru/rest/power/boris2_pc/1", "PUT", datast);
+
+            Console.WriteLine("SetItemStatusAsync response:" + responseSt);
+
         }
 
         static void Main(string[] args)

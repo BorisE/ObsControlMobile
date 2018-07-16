@@ -18,6 +18,8 @@ namespace ObsControlMobile.ViewModels
 {
     public class IQPViewModel : BaseViewModel
     {
+        public IDataStore<IQPItem> DataStore => DependencyService.Get<IDataStore<IQPItem>>() ?? new IQPDataStore();
+
         public ObservableCollection<IQPItem> IQPItems { get; set; }
         public Command LoadIQPItemsCommand { get; set; }
 

@@ -12,6 +12,8 @@ using Plugin.Connectivity;
 
 namespace ObsControlMobile.Services
 {
+    public enum DownloadResult { Success = 1, Undefined = 0, NoNetwork = -1, DownloadError = -2, ParseError = -3, AuthError = -4, HttpError = -5 };
+
     public class NetworkServices
     {
         public static bool IsConnectedToInternet()

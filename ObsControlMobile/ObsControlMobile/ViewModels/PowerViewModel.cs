@@ -17,6 +17,7 @@ using ObsControlMobile.Services;
 using ObsControlMobile.Views;
 using Xamarin.Forms;
 
+
 namespace ObsControlMobile.ViewModels
 {
     public class PowerViewModel : BaseViewModel
@@ -25,8 +26,9 @@ namespace ObsControlMobile.ViewModels
         
         public ObservableCollection<PowerStatusItem> PowerStatusItems { get; set; }
 
-        private JSONPowerStatusListClass PowerStatusList;
-        
+        private JSONPowerStatusListClass PowerStatus_Downloaded;
+
+        private PowerServiceClass PowerService;
 
         public DownloadResult GetDataResult = DownloadResult.Undefined;
 
@@ -45,10 +47,12 @@ namespace ObsControlMobile.ViewModels
 
             Title = "Status";
 
+            PowerService = new PowerServiceClass();
+
             PowerStatusItems = new ObservableCollection<PowerStatusItem>();
-            PowerStatusList = new JSONPowerStatusListClass();
 
             LoadPowerStatusCommand = new Command(async () => await GetPowerStatus());
+            SendPowerStatusCommand = new Command(async () => await SendPowerStatus());
         }
 
 
@@ -95,7 +99,7 @@ namespace ObsControlMobile.ViewModels
                 //}
 
                 //Download status data
-                PowerStatusList = new JSONPowerStatusListClass
+                JSONPowerStatusListClass PowerStatusList = new JSONPowerStatusListClass
                 {
                     ["spartak_pc"] = 0,
                     ["spartak_scope"] = 0,
@@ -170,10 +174,10 @@ namespace ObsControlMobile.ViewModels
                 PowerStatusItems.Clear();
 
                 //Download data
-                Tuple<JSONPowerStatusListClass, DownloadResult> PowerStatusRet;
-                NetworkCredential givenCredentials = new NetworkCredential(Settings.Login, Settings.Pass);
-                PowerStatusRet = await NetworkServices.GetJSONCredential<JSONPowerStatusListClass>(Settings.PowerStatusURL, givenCredentials);
+                Tuple<JSONPowerStatusListClass, DownloadResult> PowerStatusRet = await PowerService.GetStatusAsync();
 
+                //Save it for future use
+                PowerStatus_Downloaded = PowerStatusRet.Item1;
 
                 // Check for errors
                 if (PowerStatusRet.Item2 == DownloadResult.NoNetwork)
@@ -195,7 +199,7 @@ namespace ObsControlMobile.ViewModels
                 else if (PowerStatusRet.Item2 == DownloadResult.Success)
                 {
 
-                    foreach (KeyValuePair<string, int> entry in PowerStatusRet.Item1)
+                    foreach (KeyValuePair<string, int> entry in PowerStatus_Downloaded)
                     {
                         PowerStatusItem El = new PowerStatusItem
                         {
@@ -220,6 +224,63 @@ namespace ObsControlMobile.ViewModels
                 IsBusy = false;
                 //this.IsDownloading = false;
             }
+        }
+
+        public async Task SendPowerStatus()
+        {
+            Debug.WriteLine("SendPowerStatus enter");
+
+            try
+            {
+
+                //{
+                //   "boximer_pc": 0,
+                //   "boximer_scope": 0,
+                //   "boris_pc": 0,
+                //   "boris_scope": 0,
+                //   "roman_pc": 0,
+                //   "roman_scope": 0,
+                //   "spartak_pc": 0,
+                //   "spartak_scope": 0,
+                //   "boris2_pc": 0,
+                //   "boris2_scope": 0,
+                //   "boris2_ccd": 0
+                //}
+
+                //Download status data
+                ObservableCollection<PowerStatusItem> PowerStatusList = new ObservableCollection<PowerStatusItem>
+                {
+                    new PowerStatusItem{ Title="boris2_pc", StatusNumeric = 1 },
+                    new PowerStatusItem{ Title="boris2_scope", StatusNumeric = 1 },
+                };
+
+
+                //PowerStatusItem PowerStatusEl = new PowerStatusItem
+                //{
+                //    Title = "boris2_scope",
+                //    StatusNumeric = 1
+                //};
+                
+                ////Download data
+                //DownloadResult PowerStatusRet = await PowerService.SetItemStatusAsync(PowerStatusEl);
+
+                //Download data
+                DownloadResult PowerStatusRet = await PowerService.SetStatusAsync(PowerStatusItems);
+
+
+                //Reread data
+                await GetPowerStatus();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("SendPowerStatus Exception");
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+            }
+
         }
     }
 }
