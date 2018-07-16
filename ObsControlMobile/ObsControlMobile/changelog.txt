@@ -9,6 +9,10 @@ to do:
 - switch power on/off
 - push notification on roof status
 
+
+1.4.0 [16.07.2018]
+- Power Status list view working
+
 1.4.0 [13.07.2018]
 - Power Status
 

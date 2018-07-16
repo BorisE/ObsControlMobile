@@ -93,7 +93,7 @@ namespace ObsControlMobile.ViewModels
                 {
                     await ParentPage.DisplayAlert("Get IQP Data", "JSON Parse error", "Ok");
                 }
-                else
+                else if (((IQPDataStore)DataStore).GetDataResult == DownloadResult.Success)
                 {
                     // Add loaded data into binded list
                     // Also loop all data to determine last file data
@@ -107,6 +107,10 @@ namespace ObsControlMobile.ViewModels
                     //update session name
                     DateTime.SpecifyKind(curSess, DateTimeKind.Utc);
                     LastSessionDate = AsrtoUtils.Conversion.DateTimeUtils.ConvertToLocal(curSess);
+                }
+                else
+                {
+                    await ParentPage.DisplayAlert("Get IQP Data", "Unkown error", "Ok");
                 }
             }
             catch (Exception ex)

@@ -22,25 +22,14 @@ namespace ObsControlMobile.ViewModels
     public class PowerViewModel : BaseViewModel
     {
         Page ParentPage;
+        
+        public ObservableCollection<PowerStatusItem> PowerStatusItems { get; set; }
 
+        private JSONPowerStatusListClass PowerStatusList;
+        
 
         public DownloadResult GetDataResult = DownloadResult.Undefined;
 
-        //{
-        //   "boximer_pc": 0,
-        //   "boximer_scope": 0,
-        //   "boris_pc": 0,
-        //   "boris_scope": 0,
-        //   "roman_pc": 0,
-        //   "roman_scope": 0,
-        //   "spartak_pc": 0,
-        //   "spartak_scope": 0,
-        //   "boris2_pc": 0,
-        //   "boris2_scope": 0,
-        //   "boris2_ccd": 0
-        //}
-
-        public Dictionary<string, int> PowerStatusList;
 
         public Command LoadPowerStatusCommand { get; set; }
 
@@ -56,8 +45,10 @@ namespace ObsControlMobile.ViewModels
 
             Title = "Status";
 
-            PowerStatusList = new Dictionary<string, int>(); 
-            LoadPowerStatusCommand = new Command(async () => await GetPowerStatus_emulate());
+            PowerStatusItems = new ObservableCollection<PowerStatusItem>();
+            PowerStatusList = new JSONPowerStatusListClass();
+
+            LoadPowerStatusCommand = new Command(async () => await GetPowerStatus());
         }
 
 
@@ -89,23 +80,44 @@ namespace ObsControlMobile.ViewModels
 
             try
             {
+                //{
+                //   "boximer_pc": 0,
+                //   "boximer_scope": 0,
+                //   "boris_pc": 0,
+                //   "boris_scope": 0,
+                //   "roman_pc": 0,
+                //   "roman_scope": 0,
+                //   "spartak_pc": 0,
+                //   "spartak_scope": 0,
+                //   "boris2_pc": 0,
+                //   "boris2_scope": 0,
+                //   "boris2_ccd": 0
+                //}
+
                 //Download status data
-                PowerStatusList = new Dictionary<string, int>
+                PowerStatusList = new JSONPowerStatusListClass
                 {
                     ["spartak_pc"] = 0,
                     ["spartak_scope"] = 0,
-                    ["boris2_pc"] = 0,
-                    ["boris2_scope"] = 0,
+                    ["boris2_pc"] = 1,
+                    ["boris2_scope"] = 1,
                     ["boris2_ccd"] = 0,
                 };
 
-                SwitchCell PowerCell1 = new SwitchCell
+
+                // Clear data
+                PowerStatusItems.Clear();
+
+                foreach (KeyValuePair<string, int> entry in PowerStatusList)
                 {
-                    Text = "Boris2 pc"
-                };
-
-                 ((PowerPage)ParentPage).PowerSwitchSection.Children.Add(PowerCell1);
-
+                    PowerStatusItem El = new PowerStatusItem
+                    {
+                        Title = entry.Key,
+                        Status = (entry.Value == 1)
+                    };
+                    PowerStatusItems.Add(El);
+                }
+                
 
             }
             catch (Exception ex)
@@ -122,51 +134,92 @@ namespace ObsControlMobile.ViewModels
         }
 
 
-        public async Task RefreshObsStatus()
+        public async Task GetPowerStatus()
         {
-            //Download status data
-            Debug.WriteLine("RefreshObsStatus enter");
-
-            //Set CurrentDate propertie
-            CurrentDate = DateTime.Now.ToString("HH:mm:ss");
+            Debug.WriteLine("GetPowerStatus enter");
 
             if (IsBusy)
             {
-                Debug.WriteLine("RefreshObsStatus already busy, return");
+                Debug.WriteLine("GetPowerStatus already busy, return");
                 return;
             }
             IsBusy = true;
 
-            // Check network status  
-            if (NetworkServices.IsConnectedToInternet())
+
+            //Set CurrentDate propertie
+            CurrentDate = DateTime.Now.ToString("HH:mm:ss");
+
+
+            try
             {
-                try
+                ////Download data
+                //Tuple<JSONPowerStatusListClass, DownloadResult> PowerStatRet;
+                //PowerStatRet = await NetworkServices.GetJSON<JSONPowerStatusListClass>(Settings.PowerStatusURL);
+                ////Debug
+                //string stout = JsonConvert.SerializeObject(PowerStatRet);
+                //Debug.Write("Dump PowerStatRet: ");
+                //Debug.WriteLine(stout);
+
+                //var client = new WebClient { Credentials = new NetworkCredential("borise", "astro11") };
+                //string response = await client.DownloadStringTaskAsync("http://astrohostel.ru/rest/power");
+
+                //JSONPowerStatusListClass PowerStatRet = JsonConvert.DeserializeObject<JSONPowerStatusListClass>(response);
+
+
+                // Clear data
+                PowerStatusItems.Clear();
+
+                //Download data
+                Tuple<JSONPowerStatusListClass, DownloadResult> PowerStatusRet;
+                NetworkCredential givenCredentials = new NetworkCredential(Settings.Login, Settings.Pass);
+                PowerStatusRet = await NetworkServices.GetJSONCredential<JSONPowerStatusListClass>(Settings.PowerStatusURL, givenCredentials);
+
+
+                // Check for errors
+                if (PowerStatusRet.Item2 == DownloadResult.NoNetwork)
                 {
-                    //Download data
-                    Tuple<Dictionary<string, ObsStatus_JSON_ByObservatoryClass>, DownloadResult> obsstatret;
-                    obsstatret = await NetworkServices.GetJSON<Dictionary<string, ObsStatus_JSON_ByObservatoryClass>>(Settings.ObsStatusURL);
-                            //Debug
-                            string stout=JsonConvert.SerializeObject(obsstatret);
-                            Debug.Write("Dump obsstatret: ");
-                            Debug.WriteLine(stout);
-
-                    //Debug.Write("Dump: ");
-                    //Debug.WriteLine(stout);
-
-                    //REFRESH PROTPERTIES
-                    //RefreshBindingFields();
+                    await ParentPage.DisplayAlert("Get Power Status", "No network is available.", "Ok");
                 }
-                catch (Exception ex)
+                else if (PowerStatusRet.Item2 == DownloadResult.DownloadError)
                 {
-                    Debug.WriteLine("Exception in GetObsStatusJSONData");
-                    Debug.WriteLine(ex);
+                    await ParentPage.DisplayAlert("Get Power Status", "Download error", "Ok");
+                }
+                else if (PowerStatusRet.Item2 == DownloadResult.AuthError)
+                {
+                    await ParentPage.DisplayAlert("Get Power Status", "Bad username/passwords", "Ok");
+                }
+                else if (PowerStatusRet.Item2 == DownloadResult.HttpError)
+                {
+                    await ParentPage.DisplayAlert("Get Power Status", "Web error", "Ok");
+                }
+                else if (PowerStatusRet.Item2 == DownloadResult.Success)
+                {
+
+                    foreach (KeyValuePair<string, int> entry in PowerStatusRet.Item1)
+                    {
+                        PowerStatusItem El = new PowerStatusItem
+                        {
+                            Title = entry.Key,
+                            Status = (entry.Value == 1)
+                        };
+                        PowerStatusItems.Add(El);
+                    }
+                }
+                else
+                {
+                    await ParentPage.DisplayAlert("Get Power Status", "Unknown error", "Ok");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                await ParentPage.DisplayAlert("Get ObsStatus Data", "No network is available.", "Ok");
+                Debug.WriteLine("GetPowerStatus Exception");
+                Debug.WriteLine(ex);
             }
-            IsBusy = false;
+            finally
+            {
+                IsBusy = false;
+                //this.IsDownloading = false;
+            }
         }
     }
 }

@@ -65,7 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllSkyDataClass.cs" />
+    <Compile Include="DataClassed.cs" />
     <Compile Include="IQPItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

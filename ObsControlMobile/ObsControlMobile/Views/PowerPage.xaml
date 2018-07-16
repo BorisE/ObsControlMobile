@@ -27,24 +27,24 @@
 
     
     <ContentPage.Content>
-        <TableView Intent="Settings">
-            <TableRoot>
-                <TableSection Title="Power" x:Name="PowerSwitchSection">
-                    <SwitchCell Text="Boris pc" />
-                    <SwitchCell Text="Boris telescope" />
-                </TableSection>
-
-                <TableSection>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Button Margin="0,0,0,0" Text="Send" HorizontalOptions="FillAndExpand" Command="{Binding SendPowerStatusCommand}" BackgroundColor="{StaticResource Primary}" TextColor="White" />
-                            <Button Margin="0,0,0,0" Text="Refresh" HorizontalOptions="FillAndExpand" Command="{Binding LoadPowerStatusCommand}" BackgroundColor="{StaticResource Primary}" TextColor="White" />
-                        </StackLayout>
-                    </ViewCell>
-                </TableSection>
-
-            </TableRoot>
-        </TableView>
+        <StackLayout>
+            <ListView x:Name="powerList"
+                ItemsSource="{Binding PowerStatusItems}"
+                     RefreshCommand="{Binding LoadPowerStatusCommand}"
+                     IsPullToRefreshEnabled="true"
+                     IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                     CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <SwitchCell Text="{Binding Title}" On="{Binding Status}" >
+                        </SwitchCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Horizontal">
+                <Button Margin="0,0,0,0" Text="Send" HorizontalOptions="FillAndExpand" Command="{Binding SendPowerStatusCommand}" BackgroundColor="{StaticResource Primary}" TextColor="White" />
+            </StackLayout>
+        </StackLayout>
     </ContentPage.Content>
 
 

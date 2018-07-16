@@ -15,9 +15,9 @@ namespace ObsControlMobile.Services
     public static class Settings
     {
         #region Configuration settings
+        public static string PowerStatusURL = "http://astrohostel.ru/rest/power";
         public static string ObsStatusURL = "http://astrohostel.ru/status/json";
         public static string AllskyStatusURL = "http://astro.milantiev.com/allsky/stat.php";
-
         #endregion
 
 

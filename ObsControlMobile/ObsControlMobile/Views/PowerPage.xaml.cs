@@ -37,6 +37,12 @@ namespace ObsControlMobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            base.OnAppearing();
+
+            //if empty, reload
+            if (viewModel.PowerStatusItems.Count == 0)
+                viewModel.LoadPowerStatusCommand.Execute(null);
         }
 
     }

@@ -42,4 +42,19 @@ namespace TestApp
         public DateValuePair akb;
         public DateValuePair roof;
     }
+
+
+    public class PowerStatusItem
+    {
+        public string Title { get; set; }
+        public bool Status { get; set; }
+    }
+
+    public class JSONPowerStatusListClass : Dictionary<string, int>
+    {
+    }
+
+
+
+
 }
