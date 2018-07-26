@@ -29,12 +29,12 @@ namespace ObsControlMobile.Services
             }
         }
 
-        public static async Task<Tuple<T, DownloadResult>> GetJSON<T>(string stURL)
+        public static async Task<Tuple<T, DownloadResult>> GetJSON<T>(string stURL, T defVal = default(T))
         {
             Debug.WriteLine("GetJSON [" + typeof(T) + "] enter");
 
             //Return object
-            T objResponse = default(T);
+            T objResponse = defVal;
             DownloadResult retDataResult = DownloadResult.Undefined;
             // Check network status  
             if (NetworkServices.IsConnectedToInternet())
@@ -83,7 +83,7 @@ namespace ObsControlMobile.Services
                 catch (Exception ex)
                 {
                     Debug.WriteLine("Exception in GetJSON [" + typeof(T) + "] download");
-                    Debug.WriteLine(ex);
+                    Debug.WriteLine("Ex: " + ex);
                     retDataResult = DownloadResult.DownloadError;
                 }
             }
@@ -92,27 +92,31 @@ namespace ObsControlMobile.Services
                 Debug.WriteLine("GetJSON  [" + typeof(T) + "]- no network");
                 retDataResult = DownloadResult.NoNetwork;
             }
-            Debug.WriteLine("GetJSON [" + typeof(T) + "] return status:" + retDataResult);
+            Debug.WriteLine("GetJSON [" + typeof(T) + "] return status: " + retDataResult);
 
             return new Tuple<T, DownloadResult>(objResponse, retDataResult);
         }
 
-        public static async Task<Tuple<T, DownloadResult>> GetJSONCredential<T>(string stURL, NetworkCredential givenCredentials)
+        public static async Task<Tuple<T, DownloadResult>> GetJSONCredential<T>(string stURL, NetworkCredential givenCredentials, T defValue = default(T))
         {
-            Debug.WriteLine("GetJSON [" + typeof(T) + "] enter");
+            Debug.WriteLine("GetJSONCredential [" + typeof(T) + "] enter");
 
             //Return object
-            T objResponse = default(T);
+            T objResponse = defValue;
             DownloadResult retDataResult = DownloadResult.Undefined;
+
             // Check network status  
             if (NetworkServices.IsConnectedToInternet())
             {
-
+                //Debug.WriteLine("JSON Got here 1");
                 try
                 {
                     //1. Download data
-                    Uri geturi = new Uri(stURL); //replace your xml url  
+                    Uri geturi = new Uri(stURL); 
                     var client = new WebClient { Credentials = givenCredentials };
+
+                    //Debug.WriteLine("JSON Got here 2");
+
                     string responseSt = await client.DownloadStringTaskAsync(geturi);
                     Debug.WriteLine("GetJSONCredential [" + typeof(T) + "] DOWNLOAD DATA:" + responseSt);
 

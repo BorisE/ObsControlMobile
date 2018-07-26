@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "614093001918",
+    "firebase_url": "https://obscontrolmobile.firebaseio.com",
+    "project_id": "obscontrolmobile",
+    "storage_bucket": "obscontrolmobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614093001918:android:22622d3932be1090",
+        "android_client_info": {
+          "package_name": "Astromania.ObsControl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614093001918-pefs6lo3pmudq7t7a1ct53oci6nt46qp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXyuf95t6Lgv39ggxZ_39lNuz2yb9G1RQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

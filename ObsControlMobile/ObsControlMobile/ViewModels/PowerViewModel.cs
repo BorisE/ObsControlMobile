@@ -156,20 +156,6 @@ namespace ObsControlMobile.ViewModels
 
             try
             {
-                ////Download data
-                //Tuple<JSONPowerStatusListClass, DownloadResult> PowerStatRet;
-                //PowerStatRet = await NetworkServices.GetJSON<JSONPowerStatusListClass>(Settings.PowerStatusURL);
-                ////Debug
-                //string stout = JsonConvert.SerializeObject(PowerStatRet);
-                //Debug.Write("Dump PowerStatRet: ");
-                //Debug.WriteLine(stout);
-
-                //var client = new WebClient { Credentials = new NetworkCredential("borise", "astro11") };
-                //string response = await client.DownloadStringTaskAsync("http://astrohostel.ru/rest/power");
-
-                //JSONPowerStatusListClass PowerStatRet = JsonConvert.DeserializeObject<JSONPowerStatusListClass>(response);
-
-
                 // Clear data
                 PowerStatusItems.Clear();
 
@@ -222,7 +208,6 @@ namespace ObsControlMobile.ViewModels
             finally
             {
                 IsBusy = false;
-                //this.IsDownloading = false;
             }
         }
 

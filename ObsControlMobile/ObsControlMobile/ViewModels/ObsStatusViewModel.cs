@@ -382,11 +382,6 @@ namespace ObsControlMobile.ViewModels
                     //Download data
                     Tuple<Dictionary<string, ObsStatus_JSON_ByObservatoryClass>, DownloadResult> obsstatret;
                     obsstatret = await NetworkServices.GetJSON<Dictionary<string, ObsStatus_JSON_ByObservatoryClass>>(Settings.ObsStatusURL);
-                            //Debug
-                            string stout=JsonConvert.SerializeObject(obsstatret);
-                            Debug.Write("Dump obsstatret: ");
-                            Debug.WriteLine(stout);
-
 
                     // Check for errors
                     if (obsstatret.Item2 == DownloadResult.NoNetwork)
@@ -439,9 +434,9 @@ namespace ObsControlMobile.ViewModels
                         };
                         Group_Obs1.Add(El1);
 
-                        stout = JsonConvert.SerializeObject(Group_Obs1);
-                        Debug.Write("Dump Group_Obs1: ");
-                        Debug.WriteLine(stout);
+                        //stout = JsonConvert.SerializeObject(Group_Obs1);
+                        //Debug.Write("Dump Group_Obs1: ");
+                        //Debug.WriteLine(stout);
 
                         //Group for Observatory 2
                         var Group_Obs2 = new ObsStatus_LV_Group()
@@ -474,24 +469,24 @@ namespace ObsControlMobile.ViewModels
                         Group_Obs2.Add(El1);
 
 
-                        stout = JsonConvert.SerializeObject(Group_Obs2);
-                        Debug.Write("Dump Group_Obs2: ");
-                        Debug.WriteLine(stout);
+                        //stout = JsonConvert.SerializeObject(Group_Obs2);
+                        //Debug.Write("Dump Group_Obs2: ");
+                        //Debug.WriteLine(stout);
 
                         ObsStatus_LV_Grouped_source.Clear();
-                        stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
-                        Debug.Write("Dump1 ObsStatus_LV_Grouped_source: ");
-                        Debug.WriteLine(stout);
+                        //stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
+                        //Debug.Write("Dump1 ObsStatus_LV_Grouped_source: ");
+                        //Debug.WriteLine(stout);
 
                         ObsStatus_LV_Grouped_source.Add(Group_Obs1);
-                        stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
-                        Debug.Write("Dump2 ObsStatus_LV_Grouped_source: ");
-                        Debug.WriteLine(stout);
+                        //stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
+                        //Debug.Write("Dump2 ObsStatus_LV_Grouped_source: ");
+                        //Debug.WriteLine(stout);
 
                         ObsStatus_LV_Grouped_source.Add(Group_Obs2);
-                        stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
-                        Debug.Write("Dump3 ObsStatus_LV_Grouped_source: ");
-                        Debug.WriteLine(stout);
+                        //stout = JsonConvert.SerializeObject(ObsStatus_LV_Grouped_source);
+                        //Debug.Write("Dump3 ObsStatus_LV_Grouped_source: ");
+                        //Debug.WriteLine(stout);
 
                         //string stout = JsonConvert.SerializeObject(ObsStatus_LVsource);
                         //Debug.Write("Dump: ");

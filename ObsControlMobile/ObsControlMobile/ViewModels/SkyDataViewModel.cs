@@ -8,6 +8,7 @@ using System.Windows.Input;
 
 using AsrtoUtils;
 using AsrtoUtils.Conversion;
+using AstroUtils;
 using Newtonsoft.Json;
 using ObsControlMobile.Models;
 using ObsControlMobile.Services;
@@ -47,12 +48,6 @@ namespace ObsControlMobile.ViewModels
             set { SetProperty(ref currentdate, value); }
         }
 
-        bool isdownloading = false;
-        public bool IsDownloading
-        {
-            get { return isdownloading; }
-            set { SetProperty(ref isdownloading, value); }
-        }
         #endregion AllSky
 
         #region Meteoblue
@@ -123,7 +118,61 @@ namespace ObsControlMobile.ViewModels
         }
 
         #endregion Timings
-        
+
+        #region Moon
+
+        string _moonlefttimest = "";
+        public string MoonLeftTimeSt
+        {
+            get { return _moonlefttimest; }
+            set { SetProperty(ref _moonlefttimest, value); }
+
+        }
+
+        string _moonrighttimest = "";
+        public string MoonRightTimeSt
+        {
+            get { return _moonrighttimest; }
+            set { SetProperty(ref _moonrighttimest, value); }
+        }
+
+        int _moon_left_colspan = 1;
+        public int Moon_Left_ColSpan
+        {
+            get { return _moon_left_colspan; }
+            set { SetProperty(ref _moon_left_colspan, value); }
+        }
+
+        int _moon_right_colspan = 1;
+        public int Moon_Right_ColSpan
+        {
+            get { return 8 - _moon_left_colspan; }
+        }
+
+        public int Moon_Right_ColStart
+        {
+            get { return 0 + _moon_left_colspan; }
+        }
+
+        const string COLOR_MoonBelow = "DarkBlue";
+        const string COLOR_MoonAbove = "LightSkyBlue";
+
+        string _moon_left_color = COLOR_MoonBelow;
+        public string Moon_Left_Color
+        {
+            get { return _moon_left_color; }
+            set { SetProperty(ref _moon_left_color, value); }
+        }
+
+        string _moon_right_color = COLOR_MoonBelow;
+        public string Moon_Right_Color
+        {
+            get { return _moon_right_color; }
+            set { SetProperty(ref _moon_right_color, value); }
+        }
+
+        #endregion Moon
+
         public SkyDataViewModel(Page ExtPP)
         {
             ParentPage = ExtPP;
@@ -240,12 +289,32 @@ namespace ObsControlMobile.ViewModels
             // Check network status  
             if (NetworkServices.IsConnectedToInternet())
             {
-                Tuple<AllSkyDataClass, DownloadResult> allskyret;
-                allskyret = await Task.Run(() => NetworkServices.GetJSON<AllSkyDataClass>(Settings.AllskyStatusURL));
+                AllSkyDataClass allSkyDownloadedDataDef = new AllSkyDataClass();
+                DownloadResult allSkyDownloadResultDef = DownloadResult.Undefined;
+                Tuple<AllSkyDataClass, DownloadResult> allskyret = new Tuple<AllSkyDataClass, DownloadResult>(allSkyDownloadedDataDef, allSkyDownloadResultDef);
+                try
+                {
+                    //string stout1 = JsonConvert.SerializeObject(allskyret);
+                    //Debug.Write("Dump allskyret bedore: ");
+                    //Debug.WriteLine(stout1);
 
-                //4. Data setting
-                DateTime ASDT = DateTimeUtils.UnixTimeStampToDateTime(allskyret.Item1.timestamp);
-                AllSkyDate = DateTimeUtils.ConvertToLocal(ASDT).ToString("HH:mm:ss");
+                    allskyret = await Task.Run(() => NetworkServices.GetJSON<AllSkyDataClass>(Settings.AllskyStatusURL, allSkyDownloadedDataDef));
+                    ////Debug
+                    //string stout = JsonConvert.SerializeObject(allskyret);
+                    //Debug.Write("Dump allskyret: ");
+                    //Debug.WriteLine(stout);
+
+                    //4. Data setting
+                    DateTime ASDT = DateTimeUtils.UnixTimeStampToDateTime(allskyret.Item1.timestamp);
+                    AllSkyDate = DateTimeUtils.ConvertToLocal(ASDT).ToString("HH:mm:ss");
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Exception in GetAllSkyJSONData");
+                    Debug.WriteLine("Ex: " + ex);
+                }
+
             }
             else
             {
@@ -262,10 +331,107 @@ namespace ObsControlMobile.ViewModels
             NavTwilightEndTimeSt = AstroUtilsProp.NautTwilightSetDateTime().ToString("HH:mm");
             AstroTwilightEndTimeSt = AstroUtilsProp.AstronTwilightSetDateTime().ToString("HH:mm");
 
-            AstroTwilightBegTimeSt = AstroUtilsProp.AstronTwilightRiseDateTime().ToString("HH:mm");
-            NavTwilightBegTimeSt = AstroUtilsProp.NautTwilightRiseDateTime().ToString("HH:mm");
-            CivTwilightBegTimeSt = AstroUtilsProp.CivilTwilightRiseDateTime().ToString("HH:mm");
-            SunriseTimeSt = AstroUtilsProp.SunRiseDateTime().ToString("HH:mm");
+            AstroTwilightBegTimeSt = AstroUtilsProp.AstronTwilightRiseDateTime(1).ToString("HH:mm");
+            NavTwilightBegTimeSt = AstroUtilsProp.NautTwilightRiseDateTime(1).ToString("HH:mm");
+            CivTwilightBegTimeSt = AstroUtilsProp.CivilTwilightRiseDateTime(1).ToString("HH:mm");
+            SunriseTimeSt = AstroUtilsProp.SunRiseDateTime(1).ToString("HH:mm");
+
+            DateTime MoonRise, MoonSet, MoonEvent = DateTime.MinValue;
+            int SessionDayShift = 0;
+
+
+            int DebugDayShift = 0;
+
+            if (DateTime.Now.AddDays(DebugDayShift).Hour >= 0 && DateTime.Now.AddDays(DebugDayShift).Hour < 12) SessionDayShift-=1;
+
+            SessionDayShift += DebugDayShift; //add debug dayshift
+
+
+            DateTime GivenDate = DateTime.Now.AddDays(DebugDayShift);
+
+            AstroUtilsProp.getMoonTimesForSession(GivenDate, AstroUtilsProp.Latitude, AstroUtilsProp.Longitude, 3, out MoonRise, out MoonSet);
+
+            DateTime SunSet = AstroUtilsProp.SunSetDateTime(SessionDayShift);
+            DateTime SunRise = AstroUtilsProp.SunRiseDateTime(SessionDayShift+1);
+            if (MoonRise > SunSet && MoonRise < SunRise)
+            {
+                //Rise is here
+                MoonRightTimeSt = MoonRise.ToString("HH:mm");
+                MoonLeftTimeSt = "";
+                Moon_Right_Color = COLOR_MoonAbove;
+                Moon_Left_Color = COLOR_MoonBelow;
+                MoonEvent = MoonRise;
+            }
+            else if (MoonSet > SunSet && MoonSet < SunRise)
+            {
+                //Set is here
+                MoonLeftTimeSt = MoonSet.ToString("HH:mm");
+                MoonRightTimeSt = "";
+                Moon_Left_Color = COLOR_MoonAbove;
+                Moon_Right_Color = COLOR_MoonBelow;
+                MoonEvent = MoonSet;
+            }
+            else if (MoonRise < SunSet && MoonSet > SunRise)
+            {
+                //always above
+                MoonLeftTimeSt = MoonRise.ToString("HH:mm");
+                MoonRightTimeSt = MoonSet.ToString("HH:mm");
+                Moon_Left_Color = COLOR_MoonAbove;
+                Moon_Right_Color = COLOR_MoonAbove;
+                MoonEvent = DateTime.MaxValue;
+            }
+            else 
+            {
+                //always below
+                MoonLeftTimeSt = MoonSet.ToString("HH:mm");
+                MoonRightTimeSt = MoonRise.ToString("HH:mm");
+                Moon_Left_Color = COLOR_MoonBelow;
+                Moon_Right_Color = COLOR_MoonBelow;
+                MoonEvent = DateTime.MaxValue;
+            }
+
+            DateTime CivilSet = AstroUtilsProp.CivilTwilightSetDateTime(SessionDayShift);
+            DateTime NauSet = AstroUtilsProp.NautTwilightSetDateTime(SessionDayShift);
+            DateTime AstrSet = AstroUtilsProp.AstronTwilightSetDateTime(SessionDayShift);
+
+            DateTime AstrRise = AstroUtilsProp.AstronTwilightRiseDateTime(SessionDayShift+1);
+            DateTime NauRise = AstroUtilsProp.NautTwilightRiseDateTime(SessionDayShift + 1);
+            DateTime CivilRise = AstroUtilsProp.CivilTwilightRiseDateTime(SessionDayShift + 1);
+
+            if (MoonEvent < CivilSet)
+            {
+                Moon_Left_ColSpan = 1;
+            }
+            else if (MoonEvent < NauSet)
+            {
+                Moon_Left_ColSpan = 2;
+            }
+            else if (MoonEvent < AstrSet)
+            {
+                Moon_Left_ColSpan = 3;
+            }
+            else if (MoonEvent < AstrRise)
+            {
+                Moon_Left_ColSpan = 4;
+            }
+            else if (MoonEvent < NauRise)
+            {
+                Moon_Left_ColSpan = 5;
+            }
+            else if (MoonEvent < CivilRise)
+            {
+                Moon_Left_ColSpan = 6;
+            }
+            else if (MoonEvent < SunRise)
+            {
+                Moon_Left_ColSpan = 7;
+            }
+            else
+            {
+                Moon_Left_ColSpan = 4;
+            }
+
+
         }
 
         public ICommand RefreshAllSkyCommand { get; }

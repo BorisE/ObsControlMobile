@@ -43,6 +43,10 @@
             <!-- 3rd row TIMINGS -->
             <StackLayout Grid.Row="2" Spacing="0" HorizontalOptions="CenterAndExpand">
                 <Grid BackgroundColor="Black" Padding="0,5,0,5" ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -54,14 +58,18 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Label Text="{Binding SunsetTimeSt}" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding CivTwilightEndTimeSt}" Grid.Column="1" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding NavTwilightEndTimeSt}" Grid.Column="2" BackgroundColor="Blue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding AstroTwilightEndTimeSt}" Grid.Column="3" BackgroundColor="DarkBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding AstroTwilightBegTimeSt}" Grid.Column="4" BackgroundColor="DarkBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding NavTwilightBegTimeSt}" Grid.Column="5" BackgroundColor="Blue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding CivTwilightBegTimeSt}" Grid.Column="6" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding SunriseTimeSt}" Grid.Column="7" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding SunsetTimeSt}" Grid.Row="0" Grid.Column="0" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding CivTwilightEndTimeSt}" Grid.Row="0" Grid.Column="1" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding NavTwilightEndTimeSt}" Grid.Row="0" Grid.Column="2" BackgroundColor="Blue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding AstroTwilightEndTimeSt}" Grid.Row="0" Grid.Column="3" BackgroundColor="DarkBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding AstroTwilightBegTimeSt}" Grid.Row="0" Grid.Column="4" BackgroundColor="DarkBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding NavTwilightBegTimeSt}" Grid.Row="0" Grid.Column="5" BackgroundColor="Blue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding CivTwilightBegTimeSt}" Grid.Row="0" Grid.Column="6" BackgroundColor="LightSkyBlue" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding SunriseTimeSt}" Grid.Row="0" Grid.Column="7" BackgroundColor="Crimson" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+
+                    <Label Text="{Binding MoonLeftTimeSt}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding Moon_Left_ColSpan}" BackgroundColor="{Binding Moon_Left_Color}" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label Text="{Binding MoonRightTimeSt}" Grid.Row="1" Grid.Column="{Binding Moon_Right_ColStart}" Grid.ColumnSpan="{Binding Moon_Right_ColSpan}" BackgroundColor="{Binding Moon_Right_Color}" TextColor="White" HorizontalTextAlignment ="Center" HorizontalOptions="FillAndExpand"/>
+
                 </Grid>
             </StackLayout>
 

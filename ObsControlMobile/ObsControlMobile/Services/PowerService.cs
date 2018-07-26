@@ -36,9 +36,25 @@ namespace ObsControlMobile.Services
         {
             powerStatusSaveDict.Clear();
 
-            Tuple<JSONPowerStatusListClass, DownloadResult> PowerStatusRet;
+            JSONPowerStatusListClass PowerStatusJSONListDef = new JSONPowerStatusListClass();
+            DownloadResult downloadResultDef = DownloadResult.Undefined;
+            Tuple<JSONPowerStatusListClass, DownloadResult> PowerStatusRet = new Tuple<JSONPowerStatusListClass, DownloadResult>(PowerStatusJSONListDef, downloadResultDef);
+
             NetworkCredential givenCredentials = new NetworkCredential(Settings.Login, Settings.Pass);
-            PowerStatusRet = await NetworkServices.GetJSONCredential<JSONPowerStatusListClass>(Settings.PowerStatusURL, givenCredentials);
+
+            //Debug.WriteLine("GetStatusAsync Got here 1");
+
+            try
+            {
+                PowerStatusRet = await NetworkServices.GetJSONCredential<JSONPowerStatusListClass>(Settings.PowerStatusURL, givenCredentials, PowerStatusJSONListDef);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception in PowerService.GetStatusAsync");
+                Debug.WriteLine("Ex: " + ex);
+            }
+
+            //Debug.WriteLine("GetStatusAsync Got here 2");
 
             powerStatusSaveDict = PowerStatusRet.Item1;
             

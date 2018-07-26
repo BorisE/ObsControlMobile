@@ -143,7 +143,60 @@ namespace TestApp
         {
             //TimeConversionExample();
             //ParseArrayExample();
-            BaseAuthExample();
+            //BaseAuthExample();
+
+            for (int i=1; i<=31; i++)
+            { 
+                //int Date = i;
+
+                //DateTime MoonRiseDT, MoonSetDT;
+                //MoonCalc.calculateMoonTimes(2018, 07, Date, 44.7913, 38.5835, 3, out MoonRiseDT, out MoonSetDT);
+
+                //Console.Write("Date: " + Date + "/07 ["+ MoonRiseDT.Day+ "-" + MoonSetDT.Day + "]");
+                //Console.Write(" " + MoonRiseDT.Hour + ":" + MoonRiseDT.Minute);
+                //Console.WriteLine(" " + MoonSetDT.Hour + ":" + MoonSetDT.Minute);
+
+                DateTime CurDate = new DateTime(2018, 07, i, 23, 01, 0);
+
+                DateTime CurSession = CurDate.AddHours(-12);
+                //int Date = ;
+
+                DateTime MoonRiseDT0, MoonSetDT0;
+                DateTime MoonRiseDT1, MoonSetDT1;
+                DateTime MoonRiseDT_1, MoonSetDT_1;
+                MoonCalc.calculateMoonTimes(CurSession.Year, CurSession.Month, CurSession.Day, 44.7913, 38.5835, 3, out MoonRiseDT0, out MoonSetDT0);
+                MoonCalc.calculateMoonTimes(CurSession.Year, CurSession.Month, CurSession.AddDays(1).Day, 44.7913, 38.5835, 3, out MoonRiseDT1, out MoonSetDT1);
+                MoonCalc.calculateMoonTimes(CurSession.Year, CurSession.Month, CurSession.AddDays(-1).Day, 44.7913, 38.5835, 3, out MoonRiseDT_1, out MoonSetDT_1);
+
+                Console.Write("Date: " + CurSession.Day + "/" + CurSession.Month+" ");
+                if (MoonSetDT0.Hour < MoonRiseDT0.Hour && (MoonSetDT0.Day == CurSession.Day) && (MoonRiseDT0.Day == CurSession.Day))
+                {
+                    Console.Write(" ..." + MoonSetDT0.ToString("MM-dd H:m"));
+                    Console.Write("  " + MoonRiseDT0.ToString("MM-dd H:m") + "...");
+                }
+                else if ((MoonSetDT0.Day != CurSession.Day) || (MoonRiseDT0.Day != CurSession.Day))
+                {
+                    if (MoonSetDT0.Hour == 0)
+                    {
+                        Console.Write("" + MoonRiseDT0.ToString("MM-dd H:m"));
+                        Console.Write("..." + MoonSetDT1.ToString("MM-dd H:m") + "");
+                    }
+                    else if (MoonRiseDT0.Hour == 0)
+                    {
+                        Console.Write("" + MoonRiseDT_1.ToString("MM-dd H:m"));
+                        Console.Write("..." + MoonSetDT0.ToString("MM-dd H:m") + "");
+                    }
+                }
+                else
+                {
+                    Console.Write("" + MoonRiseDT0.ToString("MM-dd H:m"));
+                    Console.Write("..." + MoonSetDT0.ToString("MM-dd H:m") + "");
+                }
+                Console.WriteLine();
+
+            }
+
+
             Console.ReadLine();
         }
     }

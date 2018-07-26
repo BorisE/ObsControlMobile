@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="DataClassed.cs" />
     <Compile Include="IQPItem.cs" />
+    <Compile Include="MoonCalc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
